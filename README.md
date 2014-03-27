@@ -9,20 +9,26 @@ ARCHITECTURE
 _____________
 - Flask/Jinja2
 - PyMongo
-- Mail Server(implements SMTP protocol)
+- Custom mail Server(implements SMTP protocol)
+- Web server(mod_wsgi - Apache)
     
     
 
 MINIMUM VIABLE PRODUCT
 ________
 - supports user registration
-- allows a registered user to download a report/journal of all their recorded emails
+- display stored emails on the web
+- allows a registered user to download a pdf report/journal of all their recorded emails
+- provide a date-range for downloading
 
  
     
 EXTENDED GOALS
 _________
 - include a rich text editor that allows emails we have in storage to be editted
-- store attatchments that come with the email
+- store attatchments that come with the email and include them in the reports
 - include different report formats for emails with certain key words in the subject
 - provide compatability with myldsmail's feature that allows you to export all emails. 
+- support shared accounts or public links to specific report
+- support other file formats when downloading
+- provide differnt kinds of reports(sent from missionary, sent to missionary, etc.)
