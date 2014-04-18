@@ -3,6 +3,10 @@ app = Flask(__name__)
 
 from flask import render_template
 
+@app.route('/register')
+def register():
+	return render_template('registration.html')
+
 @app.route('/post/<username>')
 def show_user_profile(username):
 	return 'User %s' % username
