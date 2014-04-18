@@ -10,7 +10,7 @@ def show_user_profile(username):
 @app.route('/')
 @app.route('/index')
 def index():
-	return render_template('layout.html')
+	return render_template('landing.html')
 
 if __name__ == '__main__':
 	app.run()
