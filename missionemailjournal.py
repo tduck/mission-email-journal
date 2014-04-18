@@ -12,5 +12,9 @@ def show_user_profile(username):
 def index():
 	return render_template('landing.html')
 
+@app.route('/registration')
+def index():
+	return render_template('registration.html')
+
 if __name__ == '__main__':
 	app.run()
