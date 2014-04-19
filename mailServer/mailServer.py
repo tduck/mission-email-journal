@@ -25,8 +25,11 @@ class MailServer(smtpd.SMTPServer):
 		if "adamsonlance@gmail.com" in rcpttos:
 
 			if self.findUser(rcpttos, mailfrom):
+				print("---- user was found")
 				messageObject = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "message": data} 
-				messageID = self.db.mesaages.insert(messageObject)
+				print("---- saving:")
+				print(messageObject)
+				messageID = self.db.messages.insert(messageObject)
 
 		print self.db.collection_names()
 		return
@@ -40,8 +43,10 @@ class MailServer(smtpd.SMTPServer):
 		#self.db.users.insert({"email": "adamsonlance@gmail.com", "firstName": "Lance", "lastName":  "Adamson", "mission": "Mexico, Tuxtla-Gutierrez"})
 
 		for address in sentTo:
+			print("---- searching for: " + address)
 			user = users.find_one({"email": address})
 			if user:
+				print ("------ foud!!")
 				toUsers.append(user)
 
 		fromUser = users.find_one({"email": sentFrom})
