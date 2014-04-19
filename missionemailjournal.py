@@ -1,9 +1,8 @@
 from flask import Flask
 from flask.ext.pymongo import PyMongo
+from flask import render_template
 
 app = Flask(__name__)
-
-from flask import render_template
 
 @app.route('/register')
 def register():

@@ -1,9 +1,6 @@
-<!doctype html>
-<head>
-<title>My Mission Journal - User Registration</title>
-</head>
-
-<body>
+<!-- extend from base layout -->
+{% extends "layout.html" %}
+{% block content %}
 <h3>Register</h3>
 	<form method="post">
 	<input type="radio" name="missionary_title" value="Elder">Elder</input>
@@ -29,4 +26,4 @@
 	</p>
 	<input type="submit" value="Register">
 	</form>
-</body>
+{% endblock %}
