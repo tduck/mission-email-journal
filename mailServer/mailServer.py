@@ -1,13 +1,14 @@
-from flask import flask
-from flask.ext.pymongo import pymongo
-
-app = Flask('mission-email-journal')
-mongo = PyMongo(app)
 
 import smtpd
 import asyncore
+import datetime
+from pymongo import MongoClient
+
 
 class MailServer(smtpd.SMTPServer):
+	def initDB(self):
+		client = MongoClient("107.170.214.197", 27017)
+		self.db = client.myMissionJournal
 
 
 	#peer = the client's address, a tuple containig IP and incoming port
@@ -20,32 +21,37 @@ class MailServer(smtpd.SMTPServer):
 		print 'Message addressed to  :', rcpttos
 		print 'Message length        :', len(data)
 		print data
+
+		if "adamsonlance@gmail.com" in rcpttos:
+
+			if self.findUser(rcpttos, mailfrom):
+				messageObject = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "message": data} 
+				messageID = self.db.mesaages.insert(messageObject)
+
+		print self.db.collection_names()
 		return
 
 
 	def findUser(self, sentTo, sentFrom):
 		toUsers = []
 		fromUser = None
+		users = self.db.users
 
-		#for user in sentTo:
+		#self.db.users.insert({"email": "adamsonlance@gmail.com", "firstName": "Lance", "lastName":  "Adamson", "mission": "Mexico, Tuxtla-Gutierrez"})
 
+		for address in sentTo:
+			user = users.find_one({"email": address})
+			if user:
+				toUsers.append(user)
+
+		fromUser = users.find_one({"email": sentFrom})
 		
 		if len(toUsers) > 0 or fromUser:
-			return toUsers, fromUser
+			return True
 		else:
-			return None, None
-	
-	def store(self, message):
-		return None
-
-	def parseMessage(self, message):
-		messageObject = {}
-		recipients = []
-		sender = ""
-
-
-
+			return False
 
 if __name__ == "__main__":
 	server = MailServer(("localhost", 1025), None)
+	server.initDB()
 	asyncore.loop()
