@@ -1,5 +1,7 @@
 from flask import Flask
-app = Flask(__name__)
+from flask.ext.pymongo import PyMongo
+
+app = Flask('mission-email-journal')
 
 from flask import render_template
 

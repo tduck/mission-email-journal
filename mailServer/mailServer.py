@@ -23,11 +23,29 @@ class MailServer(smtpd.SMTPServer):
 		return
 
 
-	def findUser(self, to, from):
-		for user in to:
+	def findUser(self, sentTo, sentFrom):
+		toUsers = []
+		fromUser = None
+
+		#for user in sentTo:
+
+		
+		if len(toUsers) > 0 or fromUser:
+			return toUsers, fromUser
+		else:
+			return None, None
+	
+	def store(self, message):
+		return None
+
+	def parseMessage(self, message):
+		messageObject = {}
+		recipients = []
+		sender = ""
 
 
-	def store()
+
+
 if __name__ == "__main__":
 	server = MailServer(("localhost", 1025), None)
 	asyncore.loop()
