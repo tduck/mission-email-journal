@@ -6,15 +6,21 @@ h2              { font-size: 1.2em; }
 
 /*Default styles*/
 .page           { margin: 0; width: page; padding: 0.8em; background: white; }
+.largemenu { display: none; }
+.smallmenu { display: inline; }
 
 /*small tablet*/
 @media screen and (min-width: 28.75em) {
 	.page           { margin: 2em auto; width: page; padding: 0.8em; background: white; }
+	.largemenu { display: inline;}
+	.smallmenu { display: none; }
 }
 
 /*medium tablet*/
 @media screen and (min-width: 40.5em) {
 	.page           { margin: 2em auto; width: page; padding: 0.8em; background: white; }
+	.largemenu { display: inline;}
+	.smallmenu { display: none; }
 }
 
 

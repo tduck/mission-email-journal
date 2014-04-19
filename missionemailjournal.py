@@ -5,14 +5,14 @@ app = Flask('mission-email-journal')
 
 from flask import render_template
 
-@app.route('/post/<username>')
-def show_user_profile(username):
-	return 'User %s' % username
+@app.route('/register')
+def register():
+	return render_template('registration.html')
 
 @app.route('/')
 @app.route('/index')
 def index():
-	return render_template('layout.html')
+	return render_template('landing.html')
 
 if __name__ == '__main__':
 	app.run()
