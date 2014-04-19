@@ -1,13 +1,39 @@
 <!doctype html>
 <link rel=stylesheet type=text/css href='../static/style.css'>
+<link rel="stylesheet" href="../static/responsive-nav.css">
+<script src="../static/responsive-nav.js"></script>
 <head>
 	<title>Flaskr</title>
 </head>
 <body>
-<div class=largemenu>This is ye olde big navigation bar</div>
-<div class=smallmenu>Little Navigation button</div>
+
 <div class=page>
-  <h1>Flaskr</h1>
+	<div class=headerlg><img src="../static/logo_lg.png" alt="logo">
+		<a href="#">Home</a>
+		<a href="#">About</a>
+		<a href="#">Projects</a>
+		<a href="#">Contact</a>
+	</div>
+	<div class=headermd><img src="../static/logo_md.png" alt="logo">
+	<br>
+		<a href="#">Home</a>
+		<a href="#">About</a>
+		<a href="#">Projects</a>
+		<a href="#">Contact</a>
+	</div>
+	<div class=headersm><img src="../static/logo_sm.png" alt="logo">
+		<nav class="nav-collapse">
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Projects</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+		</nav>
+	</div>
   {% block content %}{% endblock %}
 </div>
+<script>
+  var nav = responsiveNav(".nav-collapse");
+</script>
 </body>
