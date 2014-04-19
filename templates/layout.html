@@ -8,28 +8,38 @@
 <body>
 
 <div class=page>
-	<div class=headerlg><img src="../static/logo_lg.png" alt="logo">
+	<div class=headerlg>
+	<table style="width:100%"><tr>
+	<td><img src="../static/logo_lg.png" alt="logo"></td>
+	<td style="text-align:right">
 		<a href="#">Home</a>
 		<a href="#">About</a>
 		<a href="#">Projects</a>
 		<a href="#">Contact</a>
+	</td></tr></table>
 	</div>
-	<div class=headermd><img src="../static/logo_md.png" alt="logo">
-	<br>
+	<div class=headermd>
+	<table style="width:100%">
+	<tr><td style="text-align:center">
 		<a href="#">Home</a>
 		<a href="#">About</a>
 		<a href="#">Projects</a>
-		<a href="#">Contact</a>
+		<a href="#">Contact</a></td></tr>
+	<tr><td><img src="../static/logo_md.png" alt="logo"></td></tr></table>
 	</div>
-	<div class=headersm><img src="../static/logo_sm.png" alt="logo">
-		<nav class="nav-collapse">
+	<div class=headersm>
+	<table>
+	<tr><td>
+	<nav class="nav-collapse">
 		<ul>
 			<li><a href="#">Home</a></li>
 			<li><a href="#">About</a></li>
 			<li><a href="#">Projects</a></li>
 			<li><a href="#">Contact</a></li>
 		</ul>
-		</nav>
+	</nav></td></tr>
+	<tr><td></table><img src="../static/logo_sm.png" alt="logo"></td></tr>
+
 	</div>
 	<p>
 	{% block content %}{% endblock %}
