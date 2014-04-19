@@ -22,7 +22,7 @@ class MailServer(smtpd.SMTPServer):
 		print 'Message length        :', len(data)
 		print data
 
-		if "adamsonlance@gmail.com" in rcpttos:
+		if "trackme@ldsmissionjournal.com" in rcpttos:
 
 			if self.findUser(rcpttos, mailfrom):
 				print("---- user was found")
