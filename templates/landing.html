@@ -1,10 +1,27 @@
 <!-- extend from base layout -->
 {% extends "layout.html" %}
 {% block content %}
-Transform your mission emails into a convenient journal!
-Username:
-Password:
+<h2>Transform your mission emails into a convenient journal!</h2>
+<hr>
+<form>
+<table>
+<tr>
+	<td>Missionary Email Address:</td>
+	<td><input type="text" name="user_email"></td>
+</tr>
+<tr>
+	<td>Password:</td>
+	<td><input type="password" name="password"></td>
+</tr>
+</table>
+<input type="submit" value="Login">
+</form>
 
-First time here?
-<a href="/register">Join now!</a>
+<h4>How it works:</h4>
+
+<p>Add our address to the subject line of your emails, or forward them to us. Then login to view your emails and create a journal of your experiences!</p>
+
+<br>
+
+<p>First time here? <a href="/register">Join now!</a></p>
 {% endblock %}

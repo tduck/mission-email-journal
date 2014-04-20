@@ -1,29 +1,47 @@
 <!-- extend from base layout -->
 {% extends "layout.html" %}
 {% block content %}
-<h3>Register</h3>
+<h2>Register</h2>
+<hr>
+	<p style="color:red">{{ message }}</p>
 	<form method="post">
-	<input type="radio" name="missionary_title" value="Elder">Elder</input>
-	<input type="radio" name="missionary_title" value="Sister">Sister</input>
-	<p>Missionary's Given Name:
-		<input type="text" name="given_name">
-	</p>
-	<p>Mission Name (optional):
-		<input type="text" name="last_name">
-	</p>
-	<p>Missionary Email:
-		<input type="text" name="username">
-	</p>
-		
-	<p>Backup Email Address:
-		<input type="text" name="secondary_email">
-	</p>
-	<p>Password (8-20 characters):
-		<input type="password" name="password">
-	</p>
-	<p>Confirm Password:
-		<input type="password" name="password_confirm">
-	</p>
+	<table class="registration_table">
+	<tr>
+		<td>
+		<input type="radio" name="missionary_title" value="Elder" checked="checked">Elder</input>
+		<input type="radio" name="missionary_title" value="Sister">Sister</input>
+		</td>
+	</tr>
+	<tr>
+		<td>Missionary's Given Name:</td>
+		<td><input type="text" name="given_name"></td>
+	</tr>
+	<tr>
+		<td>Missionary's Last Name:</td>
+		<td><input type="text" name="last_name"></td>
+	</tr>
+	<tr>
+		<td>Mission Name (optional):</td>
+		<td><input type="text" name="mission_name"></td>
+	</tr>
+	<tr>
+		<td>Missionary Email:</td>
+		<td><input type="text" name="username"></td>
+	</tr>
+	<tr>
+		<td>Backup Email Address:</td>
+		<td><input type="text" name="secondary_email"></td>
+	</td>
+	<tr>
+		<td>Password (8-20 characters):</td>
+		<td><input type="password" name="password"></td>
+	</tr>
+	<tr>
+		<td>Confirm Password:</td>
+		<td><input type="password" name="password_confirm"></td>
+	</tr>
+	</table>
+	<br>
 	<input type="submit" value="Register">
 	</form>
 {% endblock %}
