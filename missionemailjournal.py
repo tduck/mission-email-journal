@@ -14,13 +14,16 @@ db = client.MyMissionJournal
 def register():
 	msg=''
 	if request.method == 'POST':
-		msg = request.form['username']
 		if not '@' in request.form['username']:
 			msg = "Please enter a valid email address." 
 		elif not request.form['password'] == request.form['password_confirm']:
-			msg = "The passwords you enetered do not match. Please try again."
+			msg = "The passwords you entered do not match. Please try again."
 		elif len(request.form['password']) < 8 or len(request.form['password']) > 20:
 			msg = "Please choose a password that is between 8 and 20 characters long."
+		elif len(request.form['given_name']) == 0 or len(request.form['last_name']) == 0:
+			msg = "Please fill out all required fields."
+		else:
+			msg = request.form['username']
 	return render_template('registration.html', message=msg)
 
 @app.route('/')
