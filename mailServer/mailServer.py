@@ -57,6 +57,6 @@ class MailServer(smtpd.SMTPServer):
 			return False
 
 if __name__ == "__main__":
-	server = MailServer(("localhost", 1025), None)
+	server = MailServer(("localhost", 25), None)
 	server.initDB()
 	asyncore.loop()
