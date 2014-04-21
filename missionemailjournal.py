@@ -66,7 +66,11 @@ def getAllMessages(username, password):
 	if isValidUser(username, password):
 		allUserMessages = db.messages.find({"recipients":username}, {"sender":username})
 		if allUserMessages:
-			return str(allUserMessages)
+			messageList = []
+			for message in allUserMessages:
+				messageList.append(message)
+			#return str(messageList)
+			return "got to the right place"
 		else:
 			return "no messages could be found for the user"
 	else:
@@ -78,7 +82,10 @@ def getSentMessage(username, password):
 	if isValidUser(username, password):
 		allSentMessages = db.messages.find({"sender":username})
 		if allSentMessages:
-			return str(allSentMessages)
+			rmessageList = []
+			for message in allUserMessages:
+				messageList.append(message)
+			return str(messageList)
 		else:
 			return "no messages could be found for the user"
 	else:
