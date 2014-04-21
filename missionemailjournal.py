@@ -38,13 +38,17 @@ def index():
 	return render_template('landing.html')
 
 
+@app.route('/edit_profile')
+def edit_profile():
+	return render_template('edit_profile.html')
+
 
 def isValidUser(username, password):
 	user = db.users.find_one({"email": username})
 	if user:
 		hash_pass = hashlib.sha256(password + user["salt"]).hexdigest()
 		if hash_pass == user["password"]:
-			return Trues
+			return True
 	return False
 
 
