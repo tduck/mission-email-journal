@@ -62,7 +62,7 @@ def getAllMessages(username, password):
 		return "the username and password could not be validated", 401
 
 #returns a list of messages sen by the user as a list of dictionaries in JSON form
-@app.route('/getAllMessages/<username>/<password>')
+@app.route('/getSentMessages/<username>/<password>')
 def getSentMessage(username, password):
 	if isValidUser():
 		allSentMessages = db.messages.find({"sender":username})
