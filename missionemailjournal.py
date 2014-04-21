@@ -63,7 +63,8 @@ def getAllMessages(username, password):
 			messageList = []
 			for message in allUserMessages:
 				messageList.append(message)
-			return str(messageList)
+			#return str(messageList)
+			return "got to the right place"
 		else:
 			return "no messages could be found for the user"
 	else:
