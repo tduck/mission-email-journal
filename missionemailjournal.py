@@ -29,11 +29,7 @@ def register():
 				user = {"email": request.form['username'], "firstName": request.form['given_name'], "lastName": request.form['last_name'], "mission": request.form['mission_name'], "title": request.form['missionary_title'], "salt": salt, "password": hash_pass}				
 				db.users.save(user)
 				msg = "Account for " + request.form['username'] + " registered successfully."
-	return render_template('registration.html', message=msg, 
-							given_name = request.form['given_name'],
-							last_name = request.form['last_name'], 
-							mission_name = request.form['mission_name'], 
-							username = request.form['username'])
+	return render_template('registration.html', message=msg)
 
 @app.route('/')
 @app.route('/index')
