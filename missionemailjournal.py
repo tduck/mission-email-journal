@@ -2,10 +2,12 @@ import sys, hashlib, uuid
 from flask import Flask, request, render_template
 from pymongo import MongoClient
 from flask.ext.mongokit import MongoKit, Document
+from flask.ext.login import LoginManager
 
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)
 db = client.myMissionJournal
+login_manager = LoginManager()
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
