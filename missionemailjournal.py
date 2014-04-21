@@ -29,6 +29,7 @@ def register():
 				user = {"email": request.form['username'], "firstName": request.form['given_name'], "lastName": request.form['last_name'], "mission": request.form['mission_name'], "title": request.form['missionary_title'], "salt": salt, "password": hash_pass}				
 				db.users.save(user)
 				msg = "Account for " + request.form['username'] + " registered successfully."
+				return render_template('landing.html', message = msg)
 	return render_template('registration.html', message=msg)
 
 @app.route('/')
@@ -52,11 +53,11 @@ def isValidUser(username, password):
 #returns a list of all messages to or from the user as a list of dictionaries in JSON form
 @app.route('/getAllMessages/<username>/<password>')
 def getAllMessages(username, password):
-	if isValidUser():
+	if isValidUser(username, password):
 		allUserMessages = db.messages.find({"recipients":username}, {"sender":username})
 		if allUserMessages:
 			return str(allUserMessages)
-		else
+		else:
 			return "no messages could be found for the user", 404
 	else:
 		return "the username and password could not be validated", 401
@@ -64,11 +65,11 @@ def getAllMessages(username, password):
 #returns a list of messages sen by the user as a list of dictionaries in JSON form
 @app.route('/getSentMessages/<username>/<password>')
 def getSentMessage(username, password):
-	if isValidUser():
+	if isValidUser(username, password):
 		allSentMessages = db.messages.find({"sender":username})
 		if allSentMessages:
 			return str(allSentMessages)
-		else
+		else:
 			return "no messages could be found for the user", 404
 	else:
 		return "the username and password could not be validated", 401
