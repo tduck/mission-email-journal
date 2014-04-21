@@ -71,8 +71,8 @@ def getAllMessages(username, password):
 			messageList = []
 			for message in allUserMessages:
 				messageList.append(message)
-			#return str(messageList)
-			return "got to the right place"
+			return str(messageList)
+			#return "got to the right place"
 		else:
 			return "no messages could be found for the user"
 	else:
@@ -85,9 +85,10 @@ def getSentMessage(username, password):
 		allSentMessages = db.messages.find({"sender":username})
 		if allSentMessages:
 			rmessageList = []
-			for message in allUserMessages:
+			for message in allSentMessages:
 				messageList.append(message)
-			return str(messageList)
+			#return str(messageList)
+			return allSentMessages.count()
 		else:
 			return "no messages could be found for the user"
 	else:
