@@ -1,14 +1,11 @@
-import sys
-import RegistrationForm
-from flask import Flask, request
-from flask import render_template
+import sys, hashlib, uuid
+from flask import Flask, request, render_template
 from pymongo import MongoClient
 from flask.ext.mongokit import MongoKit, Document
-from wtforms import TextField, PasswordField, validators
 
 app = Flask(__name__)
 client = MongoClient('107.170.214.197', 27017)
-db = client.MyMissionJournal
+db = client.myMissionJournal
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -23,8 +20,20 @@ def register():
 		elif len(request.form['given_name']) == 0 or len(request.form['last_name']) == 0:
 			msg = "Please fill out all required fields."
 		else:
-			msg = request.form['username']
-	return render_template('registration.html', message=msg)
+			findUser = db.users.find_one({"email": request.form['username']})
+                        if findUser:
+				msg = "An account for the user " + request.form['username'] + " already exists."
+		        else:
+				salt = uuid.uuid4().hex
+				hash_pass = hashlib.sha256(request.form['password'] + salt).hexdigest()
+				user = {"email": request.form['username'], "firstName": request.form['given_name'], "LastName": request.form['last_name'], "mission": request.form['mission_name'], "title": request.form['missionary_title'], "salt": salt, "password": hash_pass}				
+				db.users.save(user)
+				msg = "Account for " + request.form['username'] + " registered successfully."
+	return render_template('registration.html', message=msg, 
+							given_name = request.form['given_name'],
+							last_name = request.form['last_name'], 
+							mission_name = request.form['mission_name'], 
+							username = request.form['username'])
 
 @app.route('/')
 @app.route('/index')
