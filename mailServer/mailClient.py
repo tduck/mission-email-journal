@@ -8,9 +8,9 @@ msg['To'] = email.utils.formataddr(('Recipient', 'recipient@example.com'))
 msg['From'] = email.utils.formataddr(('Author', 'author@example.com'))
 msg['Subject'] = 'Simple test message'
 
-server = smtplib.SMTP('107.170.214.197', 1025)
+server = smtplib.SMTP('ldsmissionjournal.com', 25)
 server.set_debuglevel(True) # show communication with the server
 try:
-    server.sendmail('author@example.com', ['recipient@example.com', 'adamsonlance@gmail.com'], msg.as_string())
+    server.sendmail('author@example.com', ['trackme@ldsmissionjournal.com', 'adamsonlance@gmail.com'], msg.as_string())
 finally:
     server.quit()
