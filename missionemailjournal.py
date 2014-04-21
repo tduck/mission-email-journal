@@ -73,6 +73,9 @@ def getSentMessage(username, password):
 	else:
 		return "the username and password could not be validated", 401
 
+@app.route('/getlance/<username>/<password>')
+def getLance(username, password):
+	return "hi " + username + " your password is " + password
 
 if __name__ == '__main__':
 	app.run()
