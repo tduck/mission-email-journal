@@ -47,20 +47,35 @@ def isValidUser(username, password):
 	if user:
 		hash_pass = hashlib.sha256(password + user["salt"]).hexdigest()
 		if hash_pass == user["password"]:
-			return True
+			return Trues
 	return False
 
 
 #this is the REST API
 
-#returns a list of dictionaries in string form
+#returns a list of all messages to or from the user as a list of dictionaries in JSON form
 @app.route('/getAllMessages/<username>/<password>')
 def getAllMessages(username, password):
 	if isValidUser():
-		return None
+		allUserMessages = db.messages.find({"recipients":username}, {"sender":username})
+		if allUserMessages:
+			return str(allUserMessages)
+		else
+			return "no messages could be found for the user", 404
 	else:
 		return "the username and password could not be validated", 401
 
+#returns a list of messages sen by the user as a list of dictionaries in JSON form
+@app.route('/getAllMessages/<username>/<password>')
+def getSentMessage(username, password):
+	if isValidUser():
+		allSentMessages = db.messages.find({"sender":username})
+		if allSentMessages:
+			return str(allSentMessages)
+		else
+			return "no messages could be found for the user", 404
+	else:
+		return "the username and password could not be validated", 401
 
 
 if __name__ == '__main__':
