@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from flask.ext.mongokit import MongoKit, Document
 
 app = Flask(__name__)
-client = MongoClient('107.170.214.197', 27017)
+client = MongoClient('localhost', 27017)
 db = client.myMissionJournal
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -26,7 +26,7 @@ def register():
 		        else:
 				salt = uuid.uuid4().hex
 				hash_pass = hashlib.sha256(request.form['password'] + salt).hexdigest()
-				user = {"email": request.form['username'], "firstName": request.form['given_name'], "LastName": request.form['last_name'], "mission": request.form['mission_name'], "title": request.form['missionary_title'], "salt": salt, "password": hash_pass}				
+				user = {"email": request.form['username'], "firstName": request.form['given_name'], "lastName": request.form['last_name'], "mission": request.form['mission_name'], "title": request.form['missionary_title'], "salt": salt, "password": hash_pass}				
 				db.users.save(user)
 				msg = "Account for " + request.form['username'] + " registered successfully."
 	return render_template('registration.html', message=msg, 
@@ -39,6 +39,29 @@ def register():
 @app.route('/index')
 def index():
 	return render_template('landing.html')
+
+
+
+def isValidUser(username, password):
+	user = db.users.find_one({"email": username})
+	if user:
+		hash_pass = hashlib.sha256(password + user["salt"]).hexdigest()
+		if hash_pass == user["password"]:
+			return True
+	return False:
+
+
+#this is the REST API
+
+#returns a list of dictionaries in string form
+@app.route('/getAllMessages/<username>/<password>')
+def getAllMessages(username, password):
+	if isValidUser():
+		return None
+	else:
+		return "the username and password could not be validated", 401
+
+
 
 if __name__ == '__main__':
 	app.run()
