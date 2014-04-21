@@ -48,7 +48,7 @@ def isValidUser(username, password):
 		hash_pass = hashlib.sha256(password + user["salt"]).hexdigest()
 		if hash_pass == user["password"]:
 			return True
-	return False:
+	return False
 
 
 #this is the REST API
