@@ -10,7 +10,7 @@ from pymongo import MongoClient
 
 class MailServer(smtpd.SMTPServer):
 	def initDB(self):
-		client = MongoClient("ldsmissionjournal.com", 27017)
+		client = MongoClient("localhost", 27017)
 		self.db = client.myMissionJournal
 
 
