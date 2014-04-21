@@ -62,9 +62,9 @@ def getAllMessages(username, password):
 		if allUserMessages:
 			return str(allUserMessages)
 		else:
-			return "no messages could be found for the user", 404
+			return "no messages could be found for the user"
 	else:
-		return "the username and password could not be validated", 401
+		return "the username and password could not be validated"
 
 #returns a list of messages sen by the user as a list of dictionaries in JSON form
 @app.route('/getSentMessages/<username>/<password>')
@@ -74,9 +74,9 @@ def getSentMessage(username, password):
 		if allSentMessages:
 			return str(allSentMessages)
 		else:
-			return "no messages could be found for the user", 404
+			return "no messages could be found for the user"
 	else:
-		return "the username and password could not be validated", 401
+		return "the username and password could not be validated"
 
 @app.route('/getlance/<username>/<password>')
 def getLance(username, password):
