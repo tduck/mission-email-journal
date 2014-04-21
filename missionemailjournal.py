@@ -37,11 +37,17 @@ def register():
 def index():
 	return render_template('landing.html')
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	return render_template('landing.html')
 
 @app.route('/edit_profile')
 def edit_profile():
 	return render_template('edit_profile.html')
 
+@app.route('/messages')
+def messages():
+	return render_template('messages.html')
 
 def isValidUser(username, password):
 	user = db.users.find_one({"email": username})
