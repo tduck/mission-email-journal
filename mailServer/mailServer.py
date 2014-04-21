@@ -7,7 +7,7 @@ from pymongo import MongoClient
 
 class MailServer(smtpd.SMTPServer):
 	def initDB(self):
-		client = MongoClient("localhost", 27017)
+		client = MongoClient("ldsmissionjournal.com", 27017)
 		self.db = client.myMissionJournal
 
 
@@ -57,6 +57,6 @@ class MailServer(smtpd.SMTPServer):
 			return False
 
 if __name__ == "__main__":
-	server = MailServer(("localhost", 25), None)
+	server = MailServer(("ldsmissionjournal.com", 25), None)
 	server.initDB()
 	asyncore.loop()
