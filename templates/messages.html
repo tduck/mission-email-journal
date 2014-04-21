@@ -1,0 +1,51 @@
+<!-- extend from base layout -->
+{% extends "layout.html" %}
+{% block content %}
+<link rel=stylesheet type=text/css href='../static/style.css'>
+<link rel="stylesheet" type="text/css" media="all" href="../static/cal/jsDatePick_ltr.min.css" />
+<script type="text/javascript" src="../static/cal/jsDatePick.min.1.3.js"></script>
+<script type="text/javascript">
+	window.onload = function(){
+		new JsDatePick({
+			useMode:2,
+			target:"startDate",
+			dateFormat:"%d/%m/%Y"
+		});
+		new JsDatePick({
+			useMode:2,
+			target:"endDate",
+			dateFormat:"%d/%m/%Y"
+		});
+	};
+</script>
+<table>
+<tr><td></td>
+<td>
+Sent <input type="checkbox" name="sent" value="sent">
+Received <input type="checkbox" name="received" value="received">
+From: <input type="text" size="12" id="startDate" />
+To: <input type="text" size="12" id="endDate" />
+</td>
+</tr>
+
+<tr>
+	<td>
+	<div class=horizbutton><ul><li><a href="#">Export</a></li></ul></div>
+	<br>
+	<b>youremail@email.com</b>
+	<ul>
+	<li>86 total emails</li>
+	<li>46 sent emails</li>
+	<li>40 received emails</li>
+	<li>13 contacts</li>
+	</ul>
+	</td>
+<td>
+	<table>
+	<tr><td></td><td><b>SUBJECT</b></td><td><b>DATE</b></td></tr>
+	</table>
+</td>
+</tr>
+</table>
+
+{% endblock %}
