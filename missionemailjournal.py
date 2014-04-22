@@ -72,11 +72,7 @@ def isValidUser(username, password):
 @app.route('/getAllMessages/<username>/<password>')
 def getAllMessages(username, password):
 	if isValidUser(username, password):
-<<<<<<< HEAD
 		allUserMessages = db.messages.find({$or:[{"sender":username},{"recipients":username}]})
-=======
-		#allUserMessages = db.messages.find({$or[{"sender":username},{"recipients":username}]})
->>>>>>> f94632a79c18611cfce29158dff7efb15fde8736
 		if allUserMessages:
 			messageList = []
 			for message in allUserMessages:
