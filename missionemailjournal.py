@@ -93,35 +93,43 @@ def isValidUser(username, password):
 #this is the REST API
 
 #returns a list of all messages to or from the user as a list of dictionaries in JSON form
-@app.route('/getAllMessages/<username>/<password>')
+@app.route('/getallmessages/<username>/<password>')
 def getAllMessages(username, password):
 	if isValidUser(username, password):
 		allUserMessages = db.messages.find({"$or":[{"sender":username},{"recipients":username}]})
+		messageList = []
 		if allUserMessages:
-			messageList = []
 			for message in allUserMessages:
 				messageList.append(message)
-			return str(messageList)
-			#return "got to the right place"
-		else:
-			return "no messages could be found for the user"
+		return str(messageList)
 	else:
 		return "the username and password could not be validated"
 
 #returns a list of messages sen by the user as a list of dictionaries in JSON form
-@app.route('/getSentMessages/<username>/<password>')
+@app.route('/getsentmessages/<username>/<password>')
 def getSentMessage(username, password):
 	if isValidUser(username, password):
 		allSentMessages = db.messages.find({"sender":username})
+		messageList = []
 		if allSentMessages:
-			messageList = []
 			for message in allSentMessages:
 				messageList.append(message)
-			return str(messageList)
-		else:
-			return "no messages could be found for the user"
+		return str(messageList)
 	else:
 		return "the username and password could not be validated"
+
+@app.route('/getsentmessages/<username>/<password>')
+def getSentMessage(username, password):
+	if isValidUser(username, password):
+		allInMessages = db.messages.find({"recipients":username})
+		messageList = []
+		if allInMessages:
+			for message in allInMessages:
+				messageList.append(message)
+		return str(messageList)
+	else:
+		return "the username and password could not be validated"
+
 
 @app.route('/getlance/<username>/<password>')
 def getLance(username, password):
