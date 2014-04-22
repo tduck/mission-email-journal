@@ -84,7 +84,7 @@ def getSentMessage(username, password):
 	if isValidUser(username, password):
 		allSentMessages = db.messages.find({"sender":username})
 		if allSentMessages:
-			rmessageList = []
+			messageList = []
 			for message in allSentMessages:
 				messageList.append(message)
 			#return str(messageList)
