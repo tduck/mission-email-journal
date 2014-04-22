@@ -1,3 +1,3 @@
 import sys
-sys.path.insert(0, '/var/www/mission-email-journal/')
+sys.path.insert(0, '/var/www/missionemailjournal/')
 from missionemailjournal import app as application
