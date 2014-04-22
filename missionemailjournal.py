@@ -87,8 +87,7 @@ def getSentMessage(username, password):
 			messageList = []
 			for message in allSentMessages:
 				messageList.append(message)
-			#return str(messageList)
-			return allSentMessages.count()
+			return str(messageList)
 		else:
 			return "no messages could be found for the user"
 	else:
