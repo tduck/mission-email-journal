@@ -2,12 +2,12 @@ import sys, hashlib, uuid
 from flask import Flask, request, render_template
 from pymongo import MongoClient
 from flask.ext.mongokit import MongoKit, Document
-from flask.ext.login import LoginManager
+#from flask.ext.login import LoginManager
 
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)
 db = client.myMissionJournal
-login_manager = LoginManager()
+#login_manager = LoginManager()
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -66,7 +66,11 @@ def isValidUser(username, password):
 @app.route('/getAllMessages/<username>/<password>')
 def getAllMessages(username, password):
 	if isValidUser(username, password):
+<<<<<<< HEAD
 		allUserMessages = db.messages.find({$or:[{"sender":username},{"recipients":username}]})
+=======
+		#allUserMessages = db.messages.find({$or[{"sender":username},{"recipients":username}]})
+>>>>>>> f94632a79c18611cfce29158dff7efb15fde8736
 		if allUserMessages:
 			messageList = []
 			for message in allUserMessages:

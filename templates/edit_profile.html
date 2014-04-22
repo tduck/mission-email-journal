@@ -1,0 +1,43 @@
+
+<!-- extend from base layout -->
+{% extends "layout.html" %}
+{% block content %}
+<h2>Edit Profile</h2>
+<hr>
+        <p style="color:red">{{ message }}</p>
+        <form method="post">
+        <table class="registration_table">
+        <tr>
+                <td>*Missionary's Given Name:</td>
+                <td><input type="text" name="given_name" value="{{ given_name }}"></td>
+        </tr>
+        <tr>
+                <td>*Missionary's Last Name:</td>
+                <td><input type="text" name="last_name" value="{{ last_name }}"></td>
+        </tr>
+        <tr>
+                <td>Mission Assignment:</td>
+                <td><input type="text" name="mission_name" value="{{ mission_name }}"></td>
+        </tr>
+        <tr>
+                <td>*Missionary's Email (Username):</td>
+                <td><input type="text" name="username" value="{{ username }}"></td>
+        </tr>
+        <tr>
+                <td>Backup Email Address:</td>
+                <td><input type="text" name="secondary_email"></td>
+        </td>
+        <tr>
+                <td>*Password (8-20 characters):</td>
+                <td><input type="password" name="password"></td>
+        </tr>
+        <tr>
+                <td>*Confirm Password:</td>
+                <td><input type="password" name="password_confirm"></td>
+        </tr>
+        </table>
+        <p><i>* = required field</i></p>
+        <input type="submit" value="Register">
+</form>
+{% endblock %}
+
