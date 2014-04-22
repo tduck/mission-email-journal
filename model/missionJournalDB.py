@@ -4,7 +4,7 @@ from pymongo import MongoClient, ASCENDING, DESCENDING
 class MissionJournalDB:
 
 	def getDB(self):
-		return MongoClient("localhost", 27017).myMissionJournal
+		return MongoClient("localhostls", 27017).myMissionJournal
 
 	def getUsersColection(self):
 		return self.getDB().users
