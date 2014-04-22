@@ -118,8 +118,8 @@ def getSentMessage(username, password):
 	else:
 		return "the username and password could not be validated"
 
-@app.route('/getsentmessages/<username>/<password>')
-def getSentMessage(username, password):
+@app.route('/getRecievedmessages/<username>/<password>')
+def getRecievedMessage(username, password):
 	if isValidUser(username, password):
 		allInMessages = db.messages.find({"recipients":username})
 		messageList = []
