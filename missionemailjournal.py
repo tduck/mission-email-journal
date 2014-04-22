@@ -1,15 +1,18 @@
-import sys, hashlib, uuid
-from flask import Flask, request, render_template
+import sys, hashlib, uuid, os
+from flask import Flask, request, render_template, redirect, session
 from pymongo import MongoClient
 from flask.ext.mongokit import MongoKit, Document
 from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 
 app = Flask(__name__)
+app.secret_key = os.urandom(256)
+
 client = MongoClient('localhost', 27017)
 db = client.myMissionJournal
+
 login_manager = LoginManager()
 login_manager.login_view = 'landing.html'
-#login_manager.init_app(app)
+login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -43,11 +46,27 @@ def register():
 @app.route('/')
 @app.route('/index')
 def index():
-	return render_template('landing.html')
+	if 'username' in session:
+		return redirect('/messages')
+	else:
+		return render_template('landing.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-	return render_template('landing.html')
+	if request.method == 'POST':
+		required = ['email', 'password']
+		for r in required:
+			if r not in request.form or request.form[r] == '':
+				return render_template('landing.html', message="Your account " + r + " is required.")
+		email = request.form['email']
+		password = request.form['password']
+		if isValidUser(email, password):
+			session['username'] = email
+			return redirect('/messages')
+		else:
+			return render_template('landing.html', message="Incorrect email or password.")
+	else:
+		return redirect('/')
 
 @app.route('/edit_profile')
 def edit_profile():
@@ -56,6 +75,11 @@ def edit_profile():
 @app.route('/messages')
 def messages():
 	return render_template('messages.html')
+
+@app.route('/logout')
+def logout():
+	session.pop('username', None)
+	return redirect('/')
 
 def isValidUser(username, password):
 	user = db.users.find_one({"email": username})

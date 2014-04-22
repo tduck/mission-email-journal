@@ -65,6 +65,15 @@
 
 	</div>
 </div>
+<div>
+{% if 'username' in session %}
+	<form action="/logout">
+	<p>Signed in as: {{ session['username'] }} |
+		<input type="submit" value="Logout">
+	</p>
+	</form>
+{% endif %}
+</div>
 <div class=page>
 	<p>
 	{% block content %}{% endblock %}
