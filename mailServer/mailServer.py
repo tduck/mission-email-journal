@@ -8,26 +8,29 @@ from pymongo import MongoClient
 
 
 class MailServer(smtpd.SMTPServer):
-	def initDB(self):
+
+	def saveMessage(self, sender, recipients, date, fullMessage, bodyHTML, bodyText, subject):
 		client = MongoClient("localhost", 27017)
-		self.db = client.myMissionJournal
+		db = client.myMissionJournal
+		dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "fullMessage": data, "bodyHTML":HTML, "bodyText":text, "subject": subject} 
+		msgID = db.messages.insert(dbMessage)
 
 	def messageAsHTML(self, msg):
 		messageHTML = ''
 		messageText = ''
 		maintype = msg.get_content_maintype()
-		print("maintype = "+maintype)
+		# print("maintype = "+maintype)
 		if maintype == 'multipart':
 			for part in msg.get_payload():
 				partType = part.get_content_type()
 				if partType == "text/html":
 					messageHTML = part.get_payload()
-					print "========== HTML =========="
-					print messageHTML
+					# print "========== HTML =========="
+					# print messageHTML
 				elif partType == "text/plain":
 					messageText = part.get_payload()
-					print "========== TEXT =========="
-					print messageText
+					# print "========== TEXT =========="
+					# print messageText
 		elif maintype == 'text':
 			messageText = mag.get_payload()
 			#should do something to parse it into HTML but I don't have time
@@ -37,7 +40,7 @@ class MailServer(smtpd.SMTPServer):
 	def getSubject(self, msg):
 		if msg.has_key("subject"):
 			subject = msg['subject']
-			print "subject: " + subject
+			# print "subject: " + subject
 			return subject
 		return ''
 
@@ -50,7 +53,7 @@ class MailServer(smtpd.SMTPServer):
 		print 'Message addressed from:', mailfrom
 		print 'Message addressed to  :', rcpttos
 		print 'Message length        :', len(data)
-		print data
+		# print data
 
 		if "trackme@ldsmissionjournal.com" in rcpttos:
 
@@ -60,10 +63,10 @@ class MailServer(smtpd.SMTPServer):
 				subject = self.getSubject(msg = msg)
 
 				#print("---- user was found")
-				dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "fullMessage": data, "bodyHTML":HTML, "bodyText":text, "subject": subject} 
+				# dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "fullMessage": data, "bodyHTML":HTML, "bodyText":text, "subject": subject} 
+				self.saveMessage(sender = mailfrom, recipients = rcpttos, date = datetime.datetime.utcnow(), fullMessage = data, bodyHTML = HTML, bodyText = text, subject = subject)
 				#print("---- saving:")
 				#print(messageObject)
-				messageID = self.db.messages.insert(dbMessage)
 
 		print self.db.collection_names()
 		return
@@ -92,5 +95,4 @@ class MailServer(smtpd.SMTPServer):
 
 if __name__ == "__main__":
 	server = MailServer(("ldsmissionjournal.com", 25), None)
-	server.initDB()
 	asyncore.loop()
