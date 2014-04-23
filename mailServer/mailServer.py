@@ -13,15 +13,26 @@ class MailServer(smtpd.SMTPServer):
 		self.db = client.myMissionJournal
 
 	def messageAsHTML(self, msg):
+		messageHTML = ''
+		messageText = ''
 		maintype = msg.get_content_maintype()
 		print("maintype = "+maintype)
 		if maintype == 'multipart':
 			for part in msg.get_payload():
 				partType = part.get_content_type()
-				print partType
-				print part
+				if partType == "text/html":
+					messageHTML = part.get_payload()
+					print "========== HTML =========="
+					print messageHTML
+				elif partType == "text/plain":
+					messageText = part.get_payload()
+					print "========== TEXT =========="
+					print messageText
 		elif maintype == 'text':
-			print msg.get_payload()
+			messageText = mag.get_payload()
+			#should do something to parse it into HTML but I don't have time
+
+		return messageText, messageHTML
 
 	def getSubject(self, msg):
 		if msg.has_key("subject"):
@@ -45,11 +56,11 @@ class MailServer(smtpd.SMTPServer):
 
 			if self.findUser(rcpttos, mailfrom):
 				msg = email.message_from_string(data)
-				HTML = self.messageAsHTML(msg = msg)
+				text, HTML = self.messageAsHTML(msg = msg)
 				subject = self.getSubject(msg = msg)
 
 				#print("---- user was found")
-				dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "message": data} 
+				dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "fullMessage": data, "bodyHTML":HTML, "bodyText":text, "subject": subject} 
 				#print("---- saving:")
 				#print(messageObject)
 				messageID = self.db.messages.insert(dbMessage)
