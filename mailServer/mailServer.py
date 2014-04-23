@@ -44,7 +44,8 @@ class MailServer(smtpd.SMTPServer):
 
 			if self.findUser(rcpttos, mailfrom):
 				msg = email.message_from_string(data)
-				HTML = messageAsHTML(msg = msg)
+				HTML = self.messageAsHTML(msg = msg)
+				subject = self.getSubject(msg = msg)
 
 				#print("---- user was found")
 				dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "message": data} 
