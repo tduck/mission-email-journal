@@ -72,7 +72,7 @@ class MailServer(smtpd.SMTPServer):
 
 		fromUser = users.find_one({"email": sentFrom})
 		
-		if len(toUsers) #> 0 or fromUser:
+		if len(toUsers) > 0 or fromUser:
 			return True
 		else:
 			return False
