@@ -28,7 +28,14 @@ def register():
 		        else:
 				salt = uuid.uuid4().hex
 				hash_pass = hashlib.sha256(request.form['password'] + salt).hexdigest()
-				user = {"email": request.form['username'], "firstName": request.form['given_name'], "lastName": request.form['last_name'], "mission": request.form['mission_name'], "title": request.form['missionary_title'], "salt": salt, "password": hash_pass}				
+				user = {"email": request.form['username'], 
+					"firstName": request.form['given_name'], 
+					"lastName": request.form['last_name'], 
+					"mission": request.form['mission_name'], 
+					"title": request.form['missionary_title'], 
+					"salt": salt, 
+					"password": hash_pass, 
+					"secondaryEmail": request.form['secondary_email']}
 				db.users.save(user)
 				msg = "Account for " + request.form['username'] + " registered successfully."
 				return render_template('landing.html', message = msg)
@@ -62,10 +69,33 @@ def login():
 @app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
 	if 'username' in session:
+		msg = ''
+		current_user = db.users.find_one({"email": session['username']})
 		if request.method == 'POST':
-			return render_template('edit_profile.html', message="Editing")
-		else:
-			return render_template('edit_profile.html')
+			if not request.form['password'] == request.form['password_confirm']:
+				msg = "Password confirmation did not match."
+			elif not isValidUser(session['username'], request.form['password']): 
+				msg = "Incorrect password."
+			else:
+				db.users.update({"email": session['username']}, 
+						{"$set": {"firstName": request.form['given_name'],
+								"lastName": request.form['last_name'],
+								"mission": request.form['mission_name'],
+								"secondaryEmail": request.form['secondary_email']}})
+				msg = "Update successful."
+				current_user = db.users.find_one({"email": session['username']})
+		return render_template('edit_profile.html', given_name=current_user['firstName'],
+								last_name=current_user['lastName'],
+								mission_name=current_user['mission'],
+								secondary_email=current_user['secondaryEmail'],
+								message=msg)
+	else:
+		return redirect('/')
+
+@app.route('/change_password', methods=['GET', 'POST'])
+def change_password():
+	if 'username' in session:
+		return redirect('/edit_profile')
 	else:
 		return redirect('/')
 

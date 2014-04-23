@@ -2,11 +2,9 @@
 <!-- extend from base layout -->
 {% extends "layout.html" %}
 {% block content %}
-<h2>Edit Profile</h2>
+<h2>Edit Profile: {{ session['username'] }}</h2>
 <hr>
-        <p style="color:red">{{ message }}</p>
-        <p>Email Address: </p>
-
+<p style="color:red">{{ message }}</p>
 <h4>Edit Personal Information</h4>
 	<form action="/edit_profile" method="post">
         <table class="registration_table">
@@ -24,7 +22,7 @@
         </tr>
         <tr>
                 <td>Backup Email Address:</td>
-                <td><input type="text" name="secondary_email"></td>
+                <td><input type="text" name="secondary_email" value="{{ secondary_email }}"></td>
         </td>
         <tr>
                 <td>Password:</td>
