@@ -17,7 +17,7 @@ class MailServer(smtpd.SMTPServer):
 		print("maintype = "+maintype)
 		if maintype == 'multipart':
 			for part in msg.get_payload():
-				partType = part.get_content_maintype()
+				partType = part.get_content_type()
 				print partType
 				print part
 		elif maintype == 'text':
