@@ -2,8 +2,7 @@
 import smtpd
 import asyncore
 import datetime
-import email.message
-import email.parser
+import email
 
 from pymongo import MongoClient
 
@@ -13,7 +12,19 @@ class MailServer(smtpd.SMTPServer):
 		client = MongoClient("localhost", 27017)
 		self.db = client.myMissionJournal
 
+	def messageAsHTML(self, msg):
+		maintype = msg.get_content_maintype()
+		print("maintype = "+maintype)
+		if maintype == 'mulitpart':
+			for part inmsg.get_payLoad():
+				partType = part.get_content_maintype()
+				print partType
+				print part
+		elif maintype == 'text':
+			print msg.get_payLoad()
 
+	def getSubject(self, msg):
+		
 	#peer = the client's address, a tuple containig IP and incoming port
 	#mailfrom = the "from" information out of the message envelope, given to the server by the client when the mesage is delivered. this does not necessarily match the From header in all cases
 	#rcpttos = the list of recipients from the message envelope. Again, this does not always mathc the To header, especially if someone is blind carbon copied
@@ -28,11 +39,14 @@ class MailServer(smtpd.SMTPServer):
 		if "trackme@ldsmissionjournal.com" in rcpttos:
 
 			if self.findUser(rcpttos, mailfrom):
-				print("---- user was found")
-				messageObject = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "message": data} 
-				print("---- saving:")
-				print(messageObject)
-				messageID = self.db.messages.insert(messageObject)
+				msg = email.massage_from_string(data)
+				HTML = messageAsHTML(msg = msg)
+
+				#print("---- user was found")
+				dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "message": data} 
+				#print("---- saving:")
+				#print(messageObject)
+				messageID = self.db.messages.insert(dbMessage)
 
 		print self.db.collection_names()
 		return
@@ -46,15 +60,15 @@ class MailServer(smtpd.SMTPServer):
 		#self.db.users.insert({"email": "adamsonlance@gmail.com", "firstName": "Lance", "lastName":  "Adamson", "mission": "Mexico, Tuxtla-Gutierrez"})
 
 		for address in sentTo:
-			print("---- searching for: " + address)
+			#print("---- searching for: " + address)
 			user = users.find_one({"email": address})
 			if user:
-				print ("------ foud!!")
+				#print ("------ foud!!")
 				toUsers.append(user)
 
 		fromUser = users.find_one({"email": sentFrom})
 		
-		if len(toUsers) > 0 or fromUser:
+		if len(toUsers) #> 0 or fromUser:
 			return True
 		else:
 			return False
