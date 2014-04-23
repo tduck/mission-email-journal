@@ -15,7 +15,7 @@ class MailServer(smtpd.SMTPServer):
 	def messageAsHTML(self, msg):
 		maintype = msg.get_content_maintype()
 		print("maintype = "+maintype)
-		if maintype == 'multitpart':
+		if maintype == 'multipart':
 			for part in msg.get_payLoad():
 				partType = part.get_content_maintype()
 				print partType
@@ -32,7 +32,7 @@ class MailServer(smtpd.SMTPServer):
 
 	def getDate(self, msg):
 		if msg.has_key('date'):
-			date = Date(msg['date'])
+			date = datetime(msg['date'])
 			return msg['date']
 		return datetime.datetime.utcnow()
 
