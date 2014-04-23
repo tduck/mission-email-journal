@@ -2,21 +2,12 @@ import sys, hashlib, uuid, os
 from flask import Flask, request, render_template, redirect, session
 from pymongo import MongoClient
 from flask.ext.mongokit import MongoKit, Document
-from flask.ext.login import LoginManager, login_user, logout_user, current_user, login_required
 
 app = Flask(__name__)
 app.secret_key = os.urandom(256)
 
 client = MongoClient('localhost', 27017)
 db = client.myMissionJournal
-
-login_manager = LoginManager()
-login_manager.login_view = 'landing.html'
-login_manager.init_app(app)
-
-@login_manager.user_loader
-def load_user(user_id):
-	return User.query.get(user_id)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -70,11 +61,17 @@ def login():
 
 @app.route('/edit_profile')
 def edit_profile():
-	return render_template('edit_profile.html')
+	if 'username' in session:
+		return render_template('edit_profile.html')
+	else:
+		return redirect('/')
 
 @app.route('/messages')
 def messages():
-	return render_template('messages.html')
+	if 'username' in session:
+		return render_template('messages.html')
+	else:
+		return redirect('/')
 
 @app.route('/logout')
 def logout():

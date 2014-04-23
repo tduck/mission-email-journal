@@ -14,10 +14,12 @@
 		<tr><td style="text-align:center;" colspan="2">
 			<div class=horizbutton>
 			<ul>
-			<li><a href="/">Home</a>
-			<li><a href="http://www.github.com/tduck/mission-email-journal/wiki" target="_blank">About</a>
-			<li><a href="#">Projects</a>
-			<li><a href="#">Contacts</a></td>
+			<li><a href="/">{% if 'username' in session %} Messages {% else %} Home {% endif %}</a></li>
+			<li><a href="http://www.github.com/tduck/mission-email-journal/wiki" target="_blank">About</a></li>
+			{% if 'username' in session %}<li><a href="/edit_profile">Edit Profile</a></li>
+						<li><a href="/logout">Logout</a></li>
+			{% else %} <li><a href="/register">Register</a></li>
+			{% endif %}
 			</ul>
 			</div>
 		</tr>
@@ -33,10 +35,12 @@
 		<tr><td style="text-align:center;" colspan="2">
 			<div class=horizbutton>
 			<ul>
-			<li><a href="#">Home</a>
-			<li><a href="http://www.github.com/tduck/mission-email-journal/wiki">About</a>
-			<li><a href="#">Projects</a>
-			<li><a href="#">Contacts</a></td>
+			<li><a href="/">{% if 'username' in session %} Messages {% else %} Home {% endif %}</a></li>
+                        <li><a href="http://www.github.com/tduck/mission-email-journal/wiki" target="_blank">About</a></li>
+                        {% if 'username' in session %}<li><a href="/edit_profile">Edit Profile</a></li>
+                                                <li><a href="/logout">Logout</a></li>
+                        {% else %} <li><a href="/register">Register</a></li>
+                        {% endif %}
 			</ul>
 			</div>
 		</tr>
@@ -51,10 +55,12 @@
 	<tr><td style="text-align:right" colspan="3">
 	<nav class="nav-collapse">
 		<ul>
-			<li><a href="#"><div class=dropbutton>Home</div></a></li>
-			<li><a href="#"><div class=dropbutton>About</div></a></li>
-			<li><a href="#"><div class=dropbutton>Projects</div></a></li>
-			<li><a href="#"><div class=dropbutton>Contact</div></a></li>
+ 			<li><a href="/"><div class=dropbutton>{% if 'username' in session %} Messages {% else %} Home {% endif %}</div></a></li>
+                        <li><a href="http://www.github.com/tduck/mission-email-journal/wiki" target="_blank"><div class=dropbutton>About</div></a></li>
+                        {% if 'username' in session %}<li><a href="/edit_profile"><div class=dropbutton>Edit Profile</div></a></li>
+                                                <li><a href="/logout"><div class=dropbutton>Logout</div></a></li>
+                        {% else %} <li><a href="/register"><div class=dropbutton>Register</div></a></li>
+                        {% endif %}
 		</ul>
 	</nav></td></tr>
 	<tr><td style="background: #377BA8; padding: 0px; border:4px solid #377BA8;" colspan="3"></td></tr>
@@ -67,17 +73,12 @@
 </div>
 <div>
 {% if 'username' in session %}
-	<form action="/logout">
-	<p>Signed in as: {{ session['username'] }} |
-		<input type="submit" value="Logout">
-	</p>
-	</form>
+<span style="float:right">Signed in as {{ session['username'] }}</span>
 {% endif %}
 </div>
 <div class=page>
 	<p>
 	{% block content %}{% endblock %}
-</div>
 </div>
 <script>
   var nav = responsiveNav(".nav-collapse", {label: "", insert: "after"});
