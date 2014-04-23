@@ -15,7 +15,7 @@ class MailServer(smtpd.SMTPServer):
 	def messageAsHTML(self, msg):
 		maintype = msg.get_content_maintype()
 		print("maintype = "+maintype)
-		if maintype == 'mulitpart':
+		if maintype == 'multitpart':
 			for part in msg.get_payLoad():
 				partType = part.get_content_maintype()
 				print partType
@@ -29,6 +29,12 @@ class MailServer(smtpd.SMTPServer):
 			print "subject: " + subject
 			return subject
 		return ''
+
+	def getDate(self, msg):
+		if msg.has_key('date'):
+			date = Date(msg['date'])
+			return msg['date']
+		return datetime.datetime.utcnow()
 
 	#peer = the client's address, a tuple containig IP and incoming port
 	#mailfrom = the "from" information out of the message envelope, given to the server by the client when the mesage is delivered. this does not necessarily match the From header in all cases
@@ -47,6 +53,7 @@ class MailServer(smtpd.SMTPServer):
 				msg = email.message_from_string(data)
 				HTML = self.messageAsHTML(msg = msg)
 				subject = self.getSubject(msg = msg)
+				date = self.getDate(msg = msg)
 
 				#print("---- user was found")
 				dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "message": data} 
