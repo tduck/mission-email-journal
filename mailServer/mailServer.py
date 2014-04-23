@@ -30,12 +30,6 @@ class MailServer(smtpd.SMTPServer):
 			return subject
 		return ''
 
-	def getDate(self, msg):
-		if msg.has_key('date'):
-			date = datetime(msg['date'])
-			return msg['date']
-		return datetime.datetime.utcnow()
-
 	#peer = the client's address, a tuple containig IP and incoming port
 	#mailfrom = the "from" information out of the message envelope, given to the server by the client when the mesage is delivered. this does not necessarily match the From header in all cases
 	#rcpttos = the list of recipients from the message envelope. Again, this does not always mathc the To header, especially if someone is blind carbon copied
@@ -53,7 +47,6 @@ class MailServer(smtpd.SMTPServer):
 				msg = email.message_from_string(data)
 				HTML = self.messageAsHTML(msg = msg)
 				subject = self.getSubject(msg = msg)
-				date = self.getDate(msg = msg)
 
 				#print("---- user was found")
 				dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "message": data} 
