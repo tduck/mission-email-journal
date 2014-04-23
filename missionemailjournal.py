@@ -59,10 +59,13 @@ def login():
 	else:
 		return redirect('/')
 
-@app.route('/edit_profile')
+@app.route('/edit_profile', methods=['GET', 'POST'])
 def edit_profile():
 	if 'username' in session:
-		return render_template('edit_profile.html')
+		if request.method == 'POST':
+			return render_template('edit_profile.html', message="Editing")
+		else:
+			return render_template('edit_profile.html')
 	else:
 		return redirect('/')
 
