@@ -14,7 +14,7 @@ class MailServer(smtpd.SMTPServer):
 
 	def saveMessage(self, sender, recipients, date, fullMessage, bodyHTML, bodyText, subject):
 		db = self.getDB()
-		dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "fullMessage": data, "bodyHTML":HTML, "bodyText":text, "subject": subject} 
+		dbMessage = {"sender": sender, "recipients": recipients, "date": datetime.datetime.utcnow(), "fullMessage": fullMessage, "bodyHTML":bodyHtml, "bodyText":bodyText, "subject": subject} 
 		msgID = db.messages.insert(dbMessage)
 
 	def messageAsHTML(self, msg):
