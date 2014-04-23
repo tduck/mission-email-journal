@@ -119,7 +119,8 @@ def change_password():
 @app.route('/messages')
 def messages():
 	if 'username' in session:
-		return render_template('messages.html')
+		messages = getAllMessages(username, password)
+		return render_template('messages.html', messages)
 	else:
 		return redirect('/')
 

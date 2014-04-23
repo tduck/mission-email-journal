@@ -24,10 +24,13 @@
   <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
  <style>
- div.scroll
+div.scroll
 {
 width:100%;
 height:100%;
+margin: 5px;
+padding: 10px;
+border: 1px solid #377BA8;
 overflow-y:scroll;
 }
 </style>
@@ -48,6 +51,7 @@ To: <input type="text" size="12" id="endDate" />
 	<td>
 	<div class=horizbutton><ul><li><a href="#">Export</a></li></ul></div>
 	<br>
+	<div style="border: 1px solid #377BA8; margin:5px; padding:5px;">
 	<b>{{ session['username'] }}</b>
 	<ul>
 	<li>86 total emails</li>
@@ -55,16 +59,16 @@ To: <input type="text" size="12" id="endDate" />
 	<li>40 received emails</li>
 	<li>13 contacts</li>
 	</ul>
+	</div>
 	</td>
 <td>
 <div id="accordion" class="scroll">
-  <h3>Section 1</h3>
+	{% for message in messages %}
+  <h3>+ {{message.subject}}</h3>
   <div>
-    <p>Mauris mauris ante, blandit et, ultrices a, suscipit eget.
-    Integer ut neque. Vivamus nisi metus, molestie vel, gravida in,
-    condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
-    Nam mi. Proin viverra leo ut odio.</p>
+    <p>{{message.bodyHTML}}</p>
   </div>
+  {% endfor %}
   <h3>Section 2</h3>
   <div>
     <p>Sed non urna. Phasellus eu ligula. Vestibulum sit amet purus.
