@@ -43,7 +43,7 @@ class MailServer(smtpd.SMTPServer):
 		if "trackme@ldsmissionjournal.com" in rcpttos:
 
 			if self.findUser(rcpttos, mailfrom):
-				msg = email.massage_from_string(data)
+				msg = email.message_from_string(data)
 				HTML = messageAsHTML(msg = msg)
 
 				#print("---- user was found")
