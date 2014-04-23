@@ -25,8 +25,9 @@ class MailServer(smtpd.SMTPServer):
 
 	def getSubject(self, msg):
 		if msg.has_key("subject"):
+			subject = msg['subject']
 			print "subject: " + subject
-			return msg['subject']
+			return subject
 		return ''
 
 	#peer = the client's address, a tuple containig IP and incoming port
