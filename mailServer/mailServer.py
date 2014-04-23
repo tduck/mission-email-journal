@@ -24,6 +24,10 @@ class MailServer(smtpd.SMTPServer):
 			print msg.get_payLoad()
 
 	def getSubject(self, msg):
+		if msg.has_key("subject"):
+			print "subject: " + subject
+			return msg['subject']
+		return ''
 
 	#peer = the client's address, a tuple containig IP and incoming port
 	#mailfrom = the "from" information out of the message envelope, given to the server by the client when the mesage is delivered. this does not necessarily match the From header in all cases
