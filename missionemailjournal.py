@@ -1,5 +1,5 @@
 import sys, hashlib, uuid, os
-from flask import Flask, request, render_template, redirect, session
+from flask import Flask, request, render_template, redirect, session, url_for
 from pymongo import MongoClient
 from flask.ext.mongokit import MongoKit, Document
 
@@ -95,7 +95,23 @@ def edit_profile():
 @app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
 	if 'username' in session:
-		return redirect('/edit_profile')
+		msg = ''
+		if request.method == 'POST':
+			required = ['old_password','new_password', 'new_pass_confirm']
+	                for r in required:
+        	                if r not in request.form or request.form[r] == '':
+                	                return render_template('change_password.html', message="All fields are required.")
+			if not request.form['new_password'] == request.form['new_pass_confirm']:
+				msg = "New password confirmation did not match."
+			elif not isValidUser(session['username'], request.form['password']):
+                                msg = "Incorrect current password."
+                        else:
+				current_user = db.users.find_one({"email": session['username']})
+				hash_pass = hashlib.sha256(request.form['new_password'] + current_user["salt"]).hexdigest()
+				msg=request.form['new_password']		
+			return render_template('change_password.html', message=msg)
+		else:
+			return render_template('change_password.html')
 	else:
 		return redirect('/')
 
