@@ -16,12 +16,12 @@ class MailServer(smtpd.SMTPServer):
 		maintype = msg.get_content_maintype()
 		print("maintype = "+maintype)
 		if maintype == 'multipart':
-			for part in msg.get_payLoad():
+			for part in msg.get_payload():
 				partType = part.get_content_maintype()
 				print partType
 				print part
 		elif maintype == 'text':
-			print msg.get_payLoad()
+			print msg.get_payload()
 
 	def getSubject(self, msg):
 		if msg.has_key("subject"):
