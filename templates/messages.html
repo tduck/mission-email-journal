@@ -18,6 +18,23 @@
 		});
 	};
 </script>
+
+
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+ <style>
+ div.scroll
+{
+width:100%;
+height:100%;
+overflow-y:scroll;
+}
+</style>
+ 
+</head>
+<body>
+
 <table>
 <tr><td></td>
 <td>
@@ -27,12 +44,11 @@ From: <input type="text" size="12" id="startDate" />
 To: <input type="text" size="12" id="endDate" />
 </td>
 </tr>
-
 <tr>
 	<td>
 	<div class=horizbutton><ul><li><a href="#">Export</a></li></ul></div>
 	<br>
-	<b>youremail@email.com</b>
+	<b>{{ session['username'] }}</b>
 	<ul>
 	<li>86 total emails</li>
 	<li>46 sent emails</li>
@@ -41,11 +57,53 @@ To: <input type="text" size="12" id="endDate" />
 	</ul>
 	</td>
 <td>
-	<table>
-	<tr><td></td><td><b>SUBJECT</b></td><td><b>DATE</b></td></tr>
-	</table>
+<div id="accordion" class="scroll">
+  <h3>Section 1</h3>
+  <div>
+    <p>Mauris mauris ante, blandit et, ultrices a, suscipit eget.
+    Integer ut neque. Vivamus nisi metus, molestie vel, gravida in,
+    condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
+    Nam mi. Proin viverra leo ut odio.</p>
+  </div>
+  <h3>Section 2</h3>
+  <div>
+    <p>Sed non urna. Phasellus eu ligula. Vestibulum sit amet purus.
+    Vivamus hendrerit, dolor aliquet laoreet, mauris turpis velit,
+    faucibus interdum tellus libero ac justo.</p>
+  </div>
+  <h3>Section 3</h3>
+  <div>
+    <p>Nam enim risus, molestie et, porta ac, aliquam ac, risus.
+    Quisque lobortis.Phasellus pellentesque purus in massa.</p>
+    <ul>
+      <li>List item one</li>
+      <li>List item two</li>
+      <li>List item three</li>
+    </ul>
+  </div>
+</div>
 </td>
 </tr>
 </table>
+ 
+  <script>
+  $(function() {
+    var icons = {
+      header: "ui-icon-circle-arrow-e",
+      activeHeader: "ui-icon-circle-arrow-s"
+    };
+    $( "#accordion" ).accordion({
+      icons: icons
+    });
+    $( "#toggle" ).button().click(function() {
+      if ( $( "#accordion" ).accordion( "option", "icons" ) ) {
+        $( "#accordion" ).accordion( "option", "icons", null );
+      } else {
+        $( "#accordion" ).accordion( "option", "icons", icons );
+      }
+    });
+  });
+  </script>
+
 
 {% endblock %}
