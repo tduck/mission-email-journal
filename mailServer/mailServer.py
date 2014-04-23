@@ -9,9 +9,11 @@ from pymongo import MongoClient
 
 class MailServer(smtpd.SMTPServer):
 
+	def getDB(self):
+		return MongoClient("localhost", 27017).myMissionJournal
+
 	def saveMessage(self, sender, recipients, date, fullMessage, bodyHTML, bodyText, subject):
-		client = MongoClient("localhost", 27017)
-		db = client.myMissionJournal
+		db = self.getDB()
 		dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "fullMessage": data, "bodyHTML":HTML, "bodyText":text, "subject": subject} 
 		msgID = db.messages.insert(dbMessage)
 
@@ -75,7 +77,7 @@ class MailServer(smtpd.SMTPServer):
 	def findUser(self, sentTo, sentFrom):
 		toUsers = []
 		fromUser = None
-		users = self.db.users
+		users = self.getDB().users
 
 		#self.db.users.insert({"email": "adamsonlance@gmail.com", "firstName": "Lance", "lastName":  "Adamson", "mission": "Mexico, Tuxtla-Gutierrez"})
 
