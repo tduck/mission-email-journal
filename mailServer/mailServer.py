@@ -69,8 +69,6 @@ class MailServer(smtpd.SMTPServer):
 				self.saveMessage(sender = mailfrom, recipients = rcpttos, date = datetime.datetime.utcnow(), fullMessage = data, bodyHTML = HTML, bodyText = text, subject = subject)
 				#print("---- saving:")
 				#print(messageObject)
-
-		print self.db.collection_names()
 		return
 
 
