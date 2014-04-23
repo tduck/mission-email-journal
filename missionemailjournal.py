@@ -103,13 +103,14 @@ def change_password():
                 	                return render_template('change_password.html', message="All fields are required.")
 			if not request.form['new_password'] == request.form['new_pass_confirm']:
 				msg = "New password confirmation did not match."
-			elif not isValidUser(session['username'], request.form['password']):
+			elif not isValidUser(session['username'], request.form['old_password']):
                                 msg = "Incorrect current password."
                         else:
 				current_user = db.users.find_one({"email": session['username']})
 				hash_pass = hashlib.sha256(request.form['new_password'] + current_user["salt"]).hexdigest()
-				msg=request.form['new_password']		
-			return render_template('change_password.html', message=msg)
+				db.users.update({"email": session['username']}, {"$set": {"password":hash_pass}})
+				msg = "Password changed successfully."
+				return render_template('change_password.html', message=msg)
 		else:
 			return render_template('change_password.html')
 	else:
