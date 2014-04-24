@@ -48,7 +48,7 @@ class MailServer(smtpd.SMTPServer):
 				if '<' in recipients:
 					email = recipient.substring(recipient.lastIndexOf("<")+1,recipient.lastIndexOf(">"))
 					recips.append(email)
-				elif '@' in recipient
+				elif '@' in recipient:
 					recips.append(recipient)
 
 		print recips
