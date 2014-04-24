@@ -39,6 +39,13 @@ class MailServer(smtpd.SMTPServer):
 
 		return messageText, messageHTML
 
+	def getRecipients(self, msg):
+		if msg.has_key("to"):
+			recipients = msg['to']
+			print recipients
+			return recipients
+		return ''
+
 	def getSubject(self, msg):
 		if msg.has_key("subject"):
 			subject = msg['subject']
@@ -63,6 +70,7 @@ class MailServer(smtpd.SMTPServer):
 				msg = email.message_from_string(data)
 				text, HTML = self.messageAsHTML(msg = msg)
 				subject = self.getSubject(msg = msg)
+				recipients = self.getRecipients(msg = msg)
 
 				#print("---- user was found")
 				# dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "fullMessage": data, "bodyHTML":HTML, "bodyText":text, "subject": subject} 
