@@ -181,7 +181,7 @@ def export():
 		response = make_response(pdf.getvalue())
 		response.headers["Content-Disposition"] = "attachment; filename=books.csv"
 		return response
-	else
+	else:
 		return redirect('/')
 		
 @app.route('/logout')
