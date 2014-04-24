@@ -49,6 +49,7 @@ class MailServer(smtpd.SMTPServer):
 					email = recipient[recipient.index("<")+1:recipient.index(">")]
 					recips.append(email)
 				elif '@' in recipient:
+					recipient.replace(" ", "")
 					recips.append(recipient)
 
 		print recips
