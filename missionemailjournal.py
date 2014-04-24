@@ -110,6 +110,7 @@ def login():
 		password = request.form['password']
 		if isValidUser(email, password):
 			session['username'] = email
+			return "it's failing on the redirect"
 			return redirect('/messages')
 		else:
 			return render_template('landing.html', message="Incorrect email or password.")
