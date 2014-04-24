@@ -176,6 +176,13 @@ def messages():
 	else:
 		return redirect('/')
 
+@app.route('/export')
+def export():
+	pdf = create_pdf(render_template('landing.html')
+	response = make_response(pdf)
+	response.headers["Content-Disposition"] = "attachment; filename=journal.pdf"
+	return response
+		
 @app.route('/logout')
 def logout():
 	session.pop('username', None)
