@@ -44,7 +44,7 @@ class MailServer(smtpd.SMTPServer):
 		if msg.has_key("to"):
 			strRecipients = msg['to']
 			split = strRecipients.split(',')
-			for recipient in split():
+			for recipient in split:
 				if '<' in recipients:
 					email = recipient.substring(recipient.lastIndexOf("<")+1,recipient.lastIndexOf(">"))
 					recips.append(email)
