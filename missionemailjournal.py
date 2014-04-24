@@ -22,16 +22,16 @@ def getMessagesCollection():
 def getUserByEmail(email):
 	return getUsersColection().find_one({"email": email})
 
-def isValidUser(userName, password):
-	user = getUserByEmail(email = userName)
+def isValidUser(username, password):
+	user = getUserByEmail(email = username)
 	if user:
 		hash_pass = hashlib.sha256(password + user["salt"]).hexdigest()
 		if hash_pass == user["password"]:
 			return True
 	return False
 
-def getAllUserMail(userName):
-	allUserMessages = getMessagesCollection().find({"$or":[{"sender":userName},{"recipients":username}]})
+def getAllUserMail(username):
+	allUserMessages = getMessagesCollection().find({"$or":[{"sender":username},{"recipients":username}]})
 	messageList = []
 
 	if allUserMessages:
@@ -40,8 +40,8 @@ def getAllUserMail(userName):
 
 	return messageList
 
-def getUserSentMail(userName):
-	allSentMessages = getMessagesCollection().find({"sender":userName})
+def getUserSentMail(username):
+	allSentMessages = getMessagesCollection().find({"sender":username})
 	messageList = []
 	if allSentMessages:
 		for message in allSentMessages:
@@ -49,8 +49,8 @@ def getUserSentMail(userName):
 
 	return messageList
 
-def getUserRecievedMail(userName):
-	allInMessages = getMessagesCollection().find({"recipients":userName})
+def getUserRecievedMail(username):
+	allInMessages = getMessagesCollection().find({"recipients":username})
 	messageList = []
 	if allInMessages:
 		for message in allInMessages:
@@ -194,9 +194,9 @@ def getAllMessages(username, password):
 
 #returns a list of messages sen by the user as a list of dictionaries in JSON form
 @app.route('/getsentmessages/<username>/<password>')
-def getSentMessage(userName, password):
-	if isValidUser(userName, password):
-		messageList = getUserSentMail(userName)		
+def getSentMessage(username, password):
+	if isValidUser(username, password):
+		messageList = getUserSentMail(username)		
 		return str(messageList)
 	else:
 		return "the username and password could not be validated"
