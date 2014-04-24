@@ -179,10 +179,14 @@ def messages():
 
 @app.route('/export')
 def export():
-	pdf = create_pdf(render_template('landing.html'))
-	response = make_response(pdf)
-	response.headers["Content-Disposition"] = "attachment; filename=journal.pdf"
-	return response
+    csv = """"REVIEW_DATE","AUTHOR","ISBN","DISCOUNTED_PRICE""""
+    # We need to modify the response, so the first thing we 
+    # need to do is create a response out of the CSV string
+    response = make_response(csv)
+    # This is the key: Set the right header for the response
+    # to be downloaded, instead of just printed on the browser
+    response.headers["Content-Disposition"] = "attachment; filename=books.csv"
+    return response
 		
 @app.route('/logout')
 def logout():
