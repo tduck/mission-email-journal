@@ -179,12 +179,8 @@ def messages():
 
 @app.route('/export')
 def export():
-    csv = ""REVIEW_DATE","AUTHOR","ISBN","DISCOUNTED_PRICE""
-    # We need to modify the response, so the first thing we 
-    # need to do is create a response out of the CSV string
+    csv = "REVIEW_DATE,AUTHOR,ISBN,DISCOUNTED_PRICE"
     response = make_response(csv)
-    # This is the key: Set the right header for the response
-    # to be downloaded, instead of just printed on the browser
     response.headers["Content-Disposition"] = "attachment; filename=books.csv"
     return response
 		
