@@ -10,28 +10,28 @@ client = MongoClient('localhost', 27017)
 db = client.myMissionJournal
 
 
-def getDB(self):
+def getDB():
 	return MongoClient("localhostls", 27017).myMissionJournal
 
-def getUsersColection(self):
-	return self.getDB().users
+def getUsersColection():
+	return getDB().users
 
-def getMessagesCollection(self):
-	return self.getDB().messages
+def getMessagesCollection():
+	return getDB().messages
 
-def getUserByEmail(self, email):
-	return self.getUsersColection().find_one({"email": email})
+def getUserByEmail(email):
+	return getUsersColection().find_one({"email": email})
 
-def isValidUser(self, userName, password):
-	user = self.getUserByEmail(email = userName)
+def isValidUser(userName, password):
+	user = getUserByEmail(email = userName)
 	if user:
 		hash_pass = hashlib.sha256(password + user["salt"]).hexdigest()
 		if hash_pass == user["password"]:
 			return True
 	return False
 
-def getAllUserMail(self, userName):
-	allUserMessages = self.getMessagesCollection().find({"$or":[{"sender":username},{"recipients":username}]})
+def getAllUserMail(userName):
+	allUserMessages = getMessagesCollection().find({"$or":[{"sender":username},{"recipients":username}]})
 	messageList = []
 
 	if allUserMessages:
@@ -40,8 +40,8 @@ def getAllUserMail(self, userName):
 
 	return messageList
 
-def getUserSentMail(self, userName):
-	allSentMessages = self.getMessagesCollection().find({"sender":username})
+def getUserSentMail(userName):
+	allSentMessages = getMessagesCollection().find({"sender":username})
 	messageList = []
 	if allSentMessages:
 		for message in allSentMessages:
@@ -49,8 +49,8 @@ def getUserSentMail(self, userName):
 
 	return messageList
 
-def getUserRecievedMail(self, userName):
-	allInMessages = self.getMessagesCollection().find({"recipients":username})
+def getUserRecievedMail(userName):
+	allInMessages = getMessagesCollection().find({"recipients":username})
 	messageList = []
 	if allInMessages:
 		for message in allInMessages:
