@@ -21,7 +21,7 @@ def getMessagesCollection():
 	return getDB().messages
 
 def getUserByEmail(email):
-	return getUsersColection().find_one({"email": email})
+	return getUsersCollection().find_one({"email": email})
 
 def isValidUser(username, password):
 	user = getUserByEmail(email = username)
