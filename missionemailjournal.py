@@ -171,7 +171,6 @@ def messages():
 	if 'username' in session:
 		messages = getAllUserMail(session['username'])
 		sent = getUserSentMail(session['username'])
-		
 		received = getUserRecievedMail(session['username'])
 		return render_template('messages.html', messages = messages, sent = sent, received = received)
 	else:

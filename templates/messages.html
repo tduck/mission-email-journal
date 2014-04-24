@@ -55,8 +55,7 @@ To: <input type="text" size="12" id="endDate" />
 	<b>{{ session['username'] }}</b>
 	<ul>
 	<li>{{messages|length}} total emails</li>
-	<li>{{sent|length}} sent emails</li>
-	<li>{{received|length}} received emails</li>
+
 	</ul>
 	</div>
 	</td>
@@ -65,7 +64,8 @@ To: <input type="text" size="12" id="endDate" />
 {% for message in messages %}
   <h3>+ {{message.subject}} &nbsp;&nbsp;&nbsp;&nbsp; {{message.date}}</h3>
   <div style="padding:0">
-
+    <p><b>to: </b>{{message.recipients}}</p>
+	<p><b>from: </b>{{message.sender}}</p>
 	<p>{{message.bodyText}}</p>
   </div>
 {% endfor %}
