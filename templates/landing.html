@@ -9,16 +9,18 @@
 <td>
 <form action="/login" method="POST">
 <table class="registration_table">
+<tr><th>Already a user?</th></tr>
 <tr>
 	<td>Missionary Email Address:</td>
-	<td><input type="text" name="email"></td>
+	<td><input type="text" name="email" placeholder="Missionary Email Address"></td>
 </tr>
 <tr>
 	<td>Password:</td>
-	<td><input type="password" name="password"></td>
+	<td><input type="password" name="password" placeholder="Password"></td>
 </tr>
+<tr><td><input type="submit" value="Login" style="width:100%; background-color:#377BA8; color:white; text-align:center; valign:center; border:0 solid black"></td></tr>
 </table>
-<input type="submit" value="Login">
+
 <p>First time here? <a href="/register">Join now!</a></p>
 </form>
 </td>
@@ -35,5 +37,7 @@
 	<li>Share your wonderful missionary experience with your friends and family</li>
 	<li>Come see us in a couple years to print a journal that documents your mission through your letters to and from home!</li>
 <br>
+
+<script type="text/javascript" src="http://placeholder-fixer.googlecode.com/svn/trunk/placeholder_fixer.js"></script>
 
 {% endblock %}
