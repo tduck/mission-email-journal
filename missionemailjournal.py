@@ -187,7 +187,7 @@ def logout():
 @app.route('/getallmessages/<username>/<password>')
 def getAllMessages(username, password):
 	if isValidUser(username, password):
-		messageList = getAllUserMail(username = username)
+		messageList = getAllUserMail(username)
 		return str(messageList)
 	else:
 		return "the username and password could not be validated"
