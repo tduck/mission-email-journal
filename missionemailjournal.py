@@ -2,6 +2,7 @@ import sys, hashlib, uuid, os
 from flask import Flask, request, render_template, redirect, session, url_for
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from flask.ext.mongokit import MongoKit, Document
+from pdfs import create_pdf
 
 app = Flask(__name__)
 app.secret_key = os.urandom(256)
