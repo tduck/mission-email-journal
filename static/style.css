@@ -56,4 +56,4 @@ a:hover .dropbutton { background-color: #60a1cb;}
 
 .registration_table {background-color:#DEEEFF; border:1px solid #377BA8;}
 .registration_table td { padding:5px; }
-.registration_table input[type=text] input[type=password] { width:300px; }
+.registration_table input[type=text] input[type=password] { width:500px; }
