@@ -79,10 +79,12 @@ class MailServer(smtpd.SMTPServer):
 				text, HTML = self.messageAsHTML(msg = msg)
 				subject = self.getSubject(msg = msg)
 				recipients = self.getRecipients(msg = msg)
+				if len(recipients) == 0:
+					recipients = rcpttos
 
 				#print("---- user was found")
 				# dbMessage = {"sender": mailfrom, "recipients": rcpttos, "date": datetime.datetime.utcnow(), "fullMessage": data, "bodyHTML":HTML, "bodyText":text, "subject": subject} 
-				self.saveMessage(sender = mailfrom, recipients = rcpttos, date = datetime.datetime.utcnow(), fullMessage = data, bodyHTML = HTML, bodyText = text, subject = subject)
+				self.saveMessage(sender = mailfrom, recipients = recipients, date = datetime.datetime.utcnow(), fullMessage = data, bodyHTML = HTML, bodyText = text, subject = subject)
 				#print("---- saving:")
 				#print(messageObject)
 		return
