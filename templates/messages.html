@@ -64,7 +64,8 @@ To: <input type="text" size="12" id="endDate" />
 {% for message in messages %}
   <h3>+ {{message.subject}} &nbsp;&nbsp;&nbsp;&nbsp; {{message.date}}</h3>
   <div style="padding:0">
-    <p><b>to: </b>{{message.recipients}}</p>
+    <p><b>to: </b>{% for r in message.recipients %}
+	{% if r != "trackme@ldsmissionjournal.com" %}{{r}}{% endif %} {% endfor %}</p>
 	<p><b>from: </b>{{message.sender}}</p>
 	<p>{{message.bodyText}}</p>
   </div>
