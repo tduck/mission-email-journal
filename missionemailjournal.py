@@ -179,7 +179,7 @@ def messages():
 
 @app.route('/export')
 def export():
-    csv = """"REVIEW_DATE","AUTHOR","ISBN","DISCOUNTED_PRICE""""
+    csv = ""REVIEW_DATE","AUTHOR","ISBN","DISCOUNTED_PRICE""
     # We need to modify the response, so the first thing we 
     # need to do is create a response out of the CSV string
     response = make_response(csv)
