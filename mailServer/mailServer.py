@@ -46,7 +46,7 @@ class MailServer(smtpd.SMTPServer):
 			splitRcpts = strRecipients.split(',')
 			for recipient in splitRcpts:
 				if '<' in recipient:
-					email = recipient[recipient.Index("<")+1:recipient.index(">")]
+					email = recipient[recipient.index("<")+1:recipient.index(">")]
 					recips.append(email)
 				elif '@' in recipient:
 					recips.append(recipient)
