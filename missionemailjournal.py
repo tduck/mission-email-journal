@@ -31,7 +31,7 @@ def isValidUser(userName, password):
 	return False
 
 def getAllUserMail(userName):
-	allUserMessages = getMessagesCollection().find({"$or":[{"sender":username},{"recipients":username}]})
+	allUserMessages = getMessagesCollection().find({"$or":[{"sender":userName},{"recipients":username}]})
 	messageList = []
 
 	if allUserMessages:
@@ -41,7 +41,7 @@ def getAllUserMail(userName):
 	return messageList
 
 def getUserSentMail(userName):
-	allSentMessages = getMessagesCollection().find({"sender":username})
+	allSentMessages = getMessagesCollection().find({"sender":userName})
 	messageList = []
 	if allSentMessages:
 		for message in allSentMessages:
@@ -50,7 +50,7 @@ def getUserSentMail(userName):
 	return messageList
 
 def getUserRecievedMail(userName):
-	allInMessages = getMessagesCollection().find({"recipients":username})
+	allInMessages = getMessagesCollection().find({"recipients":userName})
 	messageList = []
 	if allInMessages:
 		for message in allInMessages:
@@ -196,7 +196,7 @@ def getAllMessages(username, password):
 #returns a list of messages sen by the user as a list of dictionaries in JSON form
 @app.route('/getsentmessages/<username>/<password>')
 def getSentMessage(username, password):
-	if isValidUser(username, password):
+	if isValidUser(userName, password):
 		messageList = getUserSentMail(userName)		
 		return str(messageList)
 	else:
