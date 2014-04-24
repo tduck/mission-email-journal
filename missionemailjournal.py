@@ -179,8 +179,8 @@ def messages():
 
 @app.route('/export')
 def export():
-    csv = "REVIEW_DATE,AUTHOR,ISBN,DISCOUNTED_PRICE"
-    response = make_response(csv)
+    pdf = create_pdf(render_template('landing.html'))
+    response = make_response(pdf)
     response.headers["Content-Disposition"] = "attachment; filename=books.csv"
     return response
 		
