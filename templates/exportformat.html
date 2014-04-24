@@ -1,0 +1,14 @@
+<!doctype html>
+<link rel=stylesheet type=text/css href='../static/style.css'>
+<link rel="stylesheet" type="text/css" media="all" href="../static/cal/jsDatePick_ltr.min.css" />
+<body>
+
+{% for message in messages %}
+  <h3>+ {{message.subject}} &nbsp;&nbsp;&nbsp;&nbsp; {{message.date}}</h3>
+  <div style="padding:0">
+    <p><b>to: </b>{% for r in message.recipients %}
+	{{r}} {% endfor %}</p>
+	<p><b>from: </b>{{message.sender}}</p>
+	<p>{{message.bodyText}}</p>
+  </div>
+{% endfor %}
