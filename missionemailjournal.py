@@ -85,7 +85,7 @@ def register():
 					"password": hash_pass, 
 					"secondaryEmail": request.form['secondary_email']}
 				getUsersCollection().save(user)
-				msg = "Account for " + request.form['username'] + " registered successfully. Be sure to include <b>trackme@ldsjournal.com</b> as a recipient of all the emails you want tracked!"
+				msg = "Account for " + request.form['username'] + " registered successfully. Be sure to include trackme@ldsjournal.com as a recipient of all the emails you want tracked!"
 				return render_template('landing.html', message = msg)
 	return render_template('registration.html', message=msg)
 
