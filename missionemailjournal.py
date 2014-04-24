@@ -2,7 +2,6 @@ import sys, hashlib, uuid, os
 from flask import Flask, request, render_template, redirect, session, url_for
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from flask.ext.mongokit import MongoKit, Document
-import missionJournalDB
 
 app = Flask(__name__)
 app.secret_key = os.urandom(256)
@@ -11,51 +10,51 @@ client = MongoClient('localhost', 27017)
 db = client.myMissionJournal
 
 
-# def getDB(self):
-# 	return MongoClient("localhostls", 27017).myMissionJournal
+def getDB(self):
+	return MongoClient("localhostls", 27017).myMissionJournal
 
-# def getUsersColection(self):
-# 	return self.getDB().users
+def getUsersColection(self):
+	return self.getDB().users
 
-# def getMessagesCollection(self):
-# 	return self.getDB().messages
+def getMessagesCollection(self):
+	return self.getDB().messages
 
-# def getUserByEmail(self, email):
-# 	return self.getUsersColection().find_one({"email": email})
+def getUserByEmail(self, email):
+	return self.getUsersColection().find_one({"email": email})
 
-# def isValidUser(self, userName, password):
-# 	user = self.getUserByEmail(email = userName)
-# 	if user:
-# 		hash_pass = hashlib.sha256(password + user["salt"]).hexdigest()
-# 		if hash_pass == user["password"]:
-# 			return True
-# 	return False
+def isValidUser(self, userName, password):
+	user = self.getUserByEmail(email = userName)
+	if user:
+		hash_pass = hashlib.sha256(password + user["salt"]).hexdigest()
+		if hash_pass == user["password"]:
+			return True
+	return False
 
-# def getAllUserMail(self, userName):
-# 	allUserMessages = self.getMessagesCollection().find({"$or":[{"sender":username},{"recipients":username}]})
-# 	messageList = []
+def getAllUserMail(self, userName):
+	allUserMessages = self.getMessagesCollection().find({"$or":[{"sender":username},{"recipients":username}]})
+	messageList = []
 
-# 	if allUserMessages:
-# 		for message in allUserMessages:
-# 			messageList.append(message)
+	if allUserMessages:
+		for message in allUserMessages:
+			messageList.append(message)
 
-# 	return messageList
+	return messageList
 
-# def getUserSentMail(self, userName):
-# 	allSentMessages = self.getMessagesCollection().find({"sender":username})
-# 	messageList = []
-# 	if allSentMessages:
-# 		for message in allSentMessages:
-# 			messageList.append(message)
+def getUserSentMail(self, userName):
+	allSentMessages = self.getMessagesCollection().find({"sender":username})
+	messageList = []
+	if allSentMessages:
+		for message in allSentMessages:
+			messageList.append(message)
 
-# 	return messageList
+	return messageList
 
-# def getUserRecievedMail(self, userName):
-# 	allInMessages = self.getMessagesCollection().find({"recipients":username})
-# 	messageList = []
-# 	if allInMessages:
-# 		for message in allInMessages:
-# 			messageList.append(message)
+def getUserRecievedMail(self, userName):
+	allInMessages = self.getMessagesCollection().find({"recipients":username})
+	messageList = []
+	if allInMessages:
+		for message in allInMessages:
+			messageList.append(message)
 
 
 
@@ -110,7 +109,6 @@ def login():
 		password = request.form['password']
 		if isValidUser(email, password):
 			session['username'] = email
-			return "it's failing on the redirect"
 			return redirect('/messages')
 		else:
 			return render_template('landing.html', message="Incorrect email or password.")
