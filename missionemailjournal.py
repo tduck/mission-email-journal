@@ -1,7 +1,8 @@
 import sys, hashlib, uuid, os
-from flask import Flask, request, render_template, redirect, session, url_for
+from flask import Flask, request, render_template, redirect, session, url_for, make_response
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from flask.ext.mongokit import MongoKit, Document
+from pdfs import create_pdf
 
 app = Flask(__name__)
 app.secret_key = os.urandom(256)
@@ -53,6 +54,7 @@ def getUserRecievedMail(username):
 		for message in allInMessages:
 			messageList.append(message)
 
+	return messageList
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -172,6 +174,13 @@ def messages():
 	else:
 		return redirect('/')
 
+@app.route('/export')
+def export():
+    pdf = create_pdf(render_template('landing.html'))
+    response = make_response(pdf)
+    response.headers["Content-Disposition"] = "attachment; filename=books.csv"
+    return response
+		
 @app.route('/logout')
 def logout():
 	session.pop('username', None)
