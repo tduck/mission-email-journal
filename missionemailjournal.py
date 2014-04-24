@@ -2,7 +2,7 @@ import sys, hashlib, uuid, os
 from flask import Flask, request, render_template, redirect, session, url_for
 from pymongo import MongoClient
 from flask.ext.mongokit import MongoKit, Document
-import misisonJournalDB
+import missionJournalDB
 
 app = Flask(__name__)
 app.secret_key = os.urandom(256)
