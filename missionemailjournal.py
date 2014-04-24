@@ -3,8 +3,6 @@ from flask import Flask, request, render_template, redirect, session, url_for, m
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from flask.ext.mongokit import MongoKit, Document
 from pdfs import create_pdf
-from xhtml2pdf import pisa
-from StringIO import StringIO
 
 app = Flask(__name__)
 app.secret_key = os.urandom(256)
@@ -178,12 +176,13 @@ def messages():
 
 @app.route('/export')
 def export():
-	pdf_data = render_template('<html><body>hello</body></html>')
-	pdf = StringIO()
-	pisa.CreatePDF(StringIO(pdf_data), pdf)
-	response = make_response(pdf)
-	response.headers["Content-Disposition"] = "attachment; filename=books.csv"
-	return response
+	if 'username' in session:
+		pdf = create_pdf(render_template('landing.html'))
+		response = make_response(pdf.getvalue())
+		response.headers["Content-Disposition"] = "attachment; filename=books.csv"
+		return response
+	else:
+		return redirect('/')
 		
 @app.route('/logout')
 def logout():
