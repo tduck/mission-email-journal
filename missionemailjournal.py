@@ -56,6 +56,7 @@ def getUserRecievedMail(username):
 		for message in allInMessages:
 			messageList.append(message)
 
+	return messageList
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -170,6 +171,7 @@ def messages():
 	if 'username' in session:
 		messages = getAllUserMail(session['username'])
 		sent = getUserSentMail(session['username'])
+		
 		received = getUserRecievedMail(session['username'])
 		return render_template('messages.html', messages = messages, sent = sent, received = received)
 	else:
