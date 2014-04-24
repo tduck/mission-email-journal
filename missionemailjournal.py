@@ -11,6 +11,7 @@ app.secret_key = os.urandom(256)
 
 
 def getDB():
+	return "getting DB"
 	return MongoClient("localhost", 27017).myMissionJournal
 
 def getUsersColection():
