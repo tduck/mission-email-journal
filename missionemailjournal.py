@@ -183,7 +183,7 @@ def export():
 		pdf = create_pdf(render_template('landing.html'))
 		response = make_response(pdf)
 		response.headers["Content-Disposition"] = "attachment; filename=journal.pdf"
-		return response
+		return render_template('landing.html')
 		
 @app.route('/logout')
 def logout():
