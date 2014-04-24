@@ -2,8 +2,8 @@
 <link rel=stylesheet type=text/css href='../static/style.css'>
 <link rel="stylesheet" type="text/css" media="all" href="../static/cal/jsDatePick_ltr.min.css" />
 <body>
-<h1 style="text-align:center"> {{first_name}} {{last_name}}'s Mission Journal! </h1>
-<h2 style="text-align:center">Mission {{mission}}</h2>
+<h1 style="text-align:center"> {{first_name|string}} {{last_name|string}}'s Mission Journal! </h1>
+<h2 style="text-align:center">Mission {{mission|string}}</h2>
 {% for message in messages %}
   <h3>{{message.date}} &nbsp;&nbsp;&nbsp;&nbsp; {{message.subject}} </h3>
   <div style="padding:0">
