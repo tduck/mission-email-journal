@@ -40,11 +40,19 @@ class MailServer(smtpd.SMTPServer):
 		return messageText, messageHTML
 
 	def getRecipients(self, msg):
+		recips []
 		if msg.has_key("to"):
-			recipients = msg['to']
-			print recipients
-			return recipients
-		return ''
+			strRecipients = msg['to']
+			split = strRecipients.split(',')
+			for recipient in split():
+				if '<' in recipients:
+					email = recipient.substring(recipient.lastIndexOf("<")+1,recipient.lastIndexOf(">"))
+					recips.append(email)
+				elif '@' in recipient
+					recips.append(recipient)
+
+		print recips
+		return recips
 
 	def getSubject(self, msg):
 		if msg.has_key("subject"):
