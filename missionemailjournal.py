@@ -6,8 +6,8 @@ from flask.ext.mongokit import MongoKit, Document
 app = Flask(__name__)
 app.secret_key = os.urandom(256)
 
-client = MongoClient('localhost', 27017)
-db = client.myMissionJournal
+# client = MongoClient('localhost', 27017)
+# db = client.myMissionJournal
 
 
 def getDB():
@@ -71,7 +71,7 @@ def register():
 		elif len(request.form['given_name']) == 0 or len(request.form['last_name']) == 0:
 			msg = "Please fill out all required fields."
 		else:
-			findUser = db.users.find_one({"email": request.form['username']})
+			findUser = getUserByEmail(request.form['username'])
                         if findUser:
 				msg = "An account for the user " + request.form['username'] + " already exists."
 		        else:
@@ -85,7 +85,7 @@ def register():
 					"salt": salt, 
 					"password": hash_pass, 
 					"secondaryEmail": request.form['secondary_email']}
-				db.users.save(user)
+				getUsersColection().save(user)
 				msg = "Account for " + request.form['username'] + " registered successfully."
 				return render_template('landing.html', message = msg)
 	return render_template('registration.html', message=msg)
@@ -119,20 +119,20 @@ def login():
 def edit_profile():
 	if 'username' in session:
 		msg = ''
-		current_user = db.users.find_one({"email": session['username']})
+		current_user = getUserByEmail(session['username'])
 		if request.method == 'POST':
 			if not request.form['password'] == request.form['password_confirm']:
 				msg = "Password confirmation did not match."
 			elif not isValidUser(session['username'], request.form['password']): 
 				msg = "Incorrect password."
 			else:
-				db.users.update({"email": session['username']}, 
+				getUsersColection().update({"email": session['username']}, 
 						{"$set": {"firstName": request.form['given_name'],
 								"lastName": request.form['last_name'],
 								"mission": request.form['mission_name'],
 								"secondaryEmail": request.form['secondary_email']}})
 				msg = "Update successful."
-				current_user = db.users.find_one({"email": session['username']})
+				current_user = getUserByEmail(session['username'])
 		return render_template('edit_profile.html', given_name=current_user['firstName'],
 								last_name=current_user['lastName'],
 								mission_name=current_user['mission'],
@@ -155,9 +155,9 @@ def change_password():
 			elif not isValidUser(session['username'], request.form['old_password']):
                                 msg = "Incorrect current password."
                         else:
-				current_user = db.users.find_one({"email": session['username']})
+				current_user = getUsersColection(session['username'])
 				hash_pass = hashlib.sha256(request.form['new_password'] + current_user["salt"]).hexdigest()
-				db.users.update({"email": session['username']}, {"$set": {"password":hash_pass}})
+				getUsersColection().update({"email": session['username']}, {"$set": {"password":hash_pass}})
 				msg = "Password changed successfully."
 				return render_template('change_password.html', message=msg)
 		else:
@@ -196,11 +196,7 @@ def getAllMessages(username, password):
 @app.route('/getsentmessages/<username>/<password>')
 def getSentMessage(username, password):
 	if isValidUser(username, password):
-		allSentMessages = db.messages.find({"sender":username})
-		messageList = []
-		if allSentMessages:
-			for message in allSentMessages:
-				messageList.append(message)
+		messageList = getUserSentMail(userName)		
 		return str(messageList)
 	else:
 		return "the username and password could not be validated"
@@ -208,11 +204,7 @@ def getSentMessage(username, password):
 @app.route('/getRecievedmessages/<username>/<password>')
 def getRecievedMessage(username, password):
 	if isValidUser(username, password):
-		allInMessages = db.messages.find({"recipients":username})
-		messageList = []
-		if allInMessages:
-			for message in allInMessages:
-				messageList.append(message)
+		messageList = getUserRecievedMail(username)
 		return str(messageList)
 	else:
 		return "the username and password could not be validated"
