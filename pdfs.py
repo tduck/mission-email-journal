@@ -3,5 +3,5 @@ from StringIO import StringIO
 
 def create_pdf(pdf_data):
 	pdf = StringIO()
-	pisa.CreatePDF(StringIO(pdf_data.encode('utf-8')), pdf)
+	pisa.CreatePDF(StringIO(pdf_data), pdf)
 	return pdf

@@ -183,7 +183,7 @@ def export():
 		last_name=current_user['lastName'],
 		mission_name=current_user['mission'],
 		messages = getAllUserMail(session['username'])
-		pdf = create_pdf(render_template('exportformat.html', messages = str(messages), mission = str(mission_name), first_name = str(given_name), last_name = str(last_name)))
+		pdf = create_pdf(render_template('exportformat.html', messages = messages, mission = str(mission_name), first_name = str(given_name), last_name = str(last_name)))
 		response = make_response(pdf.getvalue())
 		response.headers["Content-Disposition"] = "attachment; filename=journal.pdf"
 		return response
