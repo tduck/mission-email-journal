@@ -178,7 +178,7 @@ def messages():
 		return redirect('/')
 
 @app.route('/export')
-def exportpdf():
+def export():
 	if 'username' in session:
 		pdf = create_pdf(render_template('landing.html'))
 		response = make_response(pdf)
