@@ -11,10 +11,9 @@ app.secret_key = os.urandom(256)
 
 
 def getDB():
-	return "getting DB"
 	return MongoClient("localhost", 27017).myMissionJournal
 
-def getUsersColection():
+def getUsersCollection():
 	return getDB().users
 
 def getMessagesCollection():
@@ -86,7 +85,7 @@ def register():
 					"salt": salt, 
 					"password": hash_pass, 
 					"secondaryEmail": request.form['secondary_email']}
-				getUsersColection().save(user)
+				getUsersCollection().save(user)
 				msg = "Account for " + request.form['username'] + " registered successfully."
 				return render_template('landing.html', message = msg)
 	return render_template('registration.html', message=msg)
@@ -127,7 +126,7 @@ def edit_profile():
 			elif not isValidUser(session['username'], request.form['password']): 
 				msg = "Incorrect password."
 			else:
-				getUsersColection().update({"email": session['username']}, 
+				getUsersCollection().update({"email": session['username']}, 
 						{"$set": {"firstName": request.form['given_name'],
 								"lastName": request.form['last_name'],
 								"mission": request.form['mission_name'],
@@ -156,9 +155,9 @@ def change_password():
 			elif not isValidUser(session['username'], request.form['old_password']):
                                 msg = "Incorrect current password."
                         else:
-				current_user = getUsersColection(session['username'])
+				current_user = getUsersCollection(session['username'])
 				hash_pass = hashlib.sha256(request.form['new_password'] + current_user["salt"]).hexdigest()
-				getUsersColection().update({"email": session['username']}, {"$set": {"password":hash_pass}})
+				getUsersCollection().update({"email": session['username']}, {"$set": {"password":hash_pass}})
 				msg = "Password changed successfully."
 				return render_template('change_password.html', message=msg)
 		else:
