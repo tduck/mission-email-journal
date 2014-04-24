@@ -9,7 +9,6 @@ app.secret_key = os.urandom(256)
 
 client = MongoClient('localhost', 27017)
 db = client.myMissionJournal
-dbAccess = MissionJournalDB()
 
 
 def getDB(self):
@@ -187,7 +186,7 @@ def logout():
 @app.route('/getallmessages/<username>/<password>')
 def getAllMessages(username, password):
 	if isValidUser(username, password):
-		messageList = dbAccess.getAllUserMail(username = username)
+		messageList = getAllUserMail(username = username)
 		return str(messageList)
 	else:
 		return "the username and password could not be validated"
