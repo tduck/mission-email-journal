@@ -63,9 +63,9 @@ To: <input type="text" size="12" id="endDate" />
 <td>
 <div id="accordion" class="scroll" style="font-size:80%; margin: 2px;">
 {% for message in messages %}
-  <h3>+ {{message.subject}}</h3>
+  <h3>+ {{message.subject}} &nbsp;&nbsp;&nbsp;&nbsp; {{message.date}}</h3>
   <div style="padding:0">
-    <p><b>to: </b>{{message.recipients}}</p>
+
 	<p><b>from: </b>{{message.sender}}</p>
 	<p>{{message.bodyText}}</p>
   </div>
