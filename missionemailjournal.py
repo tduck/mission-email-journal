@@ -181,9 +181,9 @@ def export():
 	pdf_data = render_template('landing.html')
 	pdf = StringIO()
 	pisa.CreatePDF(StringIO(pdf_data), pdf)
-    response = make_response(pdf)
-    response.headers["Content-Disposition"] = "attachment; filename=books.csv"
-    return response
+	response = make_response(pdf)
+	response.headers["Content-Disposition"] = "attachment; filename=books.csv"
+	return response
 		
 @app.route('/logout')
 def logout():
