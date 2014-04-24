@@ -107,7 +107,6 @@ def login():
 				return render_template('landing.html', message="Your account " + r + " is required.")
 		email = request.form['email']
 		password = request.form['password']
-		return "it's probably db stuff"
 		if isValidUser(email, password):
 			session['username'] = email
 			return redirect('/messages')
