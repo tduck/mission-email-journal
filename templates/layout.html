@@ -72,11 +72,7 @@
 
 	</div>
 </div>
-<div>
-{% if 'username' in session %}
-<span style="float:right">Signed in as {{ session['username'] }}</span>
-{% endif %}
-</div>
+
 <div class=page>
 	<p>
 	{% block content %}{% endblock %}
