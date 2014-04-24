@@ -178,7 +178,7 @@ def messages():
 
 @app.route('/export')
 def export():
-	pdf_data = render_template('landing.html')
+	pdf_data = render_template('<html><body>hello</body></html>')
 	pdf = StringIO()
 	pisa.CreatePDF(StringIO(pdf_data), pdf)
 	response = make_response(pdf)
