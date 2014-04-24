@@ -5,24 +5,25 @@
 <p style="text-align:center;"><i>Keeping track of your mission experiences has never been so easy!</i></p>
 <p style="color:red">{{ message }}</p>
 
-<table><tr>
+<table width="100%"><tr>
 <td>
 <form action="/login" method="POST">
 <table class="registration_table">
-<tr><th>Already a user?</th></tr>
+<tr><th style="font-size:120%">Already a user?</th></tr>
 <tr>
-	<td>Missionary Email Address:</td>
 	<td><input type="text" name="email" placeholder="Missionary Email Address"></td>
 </tr>
 <tr>
-	<td>Password:</td>
 	<td><input type="password" name="password" placeholder="Password"></td>
 </tr>
 <tr><td><input type="submit" value="Login" style="width:100%; background-color:#377BA8; color:white; text-align:center; valign:center; border:0 solid black"></td></tr>
+</form>
 </table>
 
-<p>First time here? <a href="/register">Join now!</a></p>
-</form>
+<table class="registration_table"><tr>
+<th style="font-size:120%">First time here?</th></tr>
+<tr><td><a href="/register" style="text-decoration:none;"><div style="width:100%; background-color:#377BA8; color:white; text-align:center; valign:center; border:0 solid black;">Join now!</div></a></td></tr>
+</table>
 </td>
 <td>
 <img src="../static/landing_image.png" alt="landing image">

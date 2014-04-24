@@ -54,6 +54,6 @@ a:hover .dropbutton { background-color: #60a1cb;}
                   border: 1px solid #AACBE2; }
 .error          { background: #F0D6D6; padding: 0.5em; }
 
-.registration_table {background-color:#DEEEFF; border:1px solid #377BA8;}
+.registration_table {background-color:#DEEEFF; border:1px solid #377BA8; width:300px;}
 .registration_table td { padding:5px; }
 .registration_table input[type=text] input[type=password] { width:300px; }
