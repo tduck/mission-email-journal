@@ -40,7 +40,7 @@ class MailServer(smtpd.SMTPServer):
 		return messageText, messageHTML
 
 	def getRecipients(self, msg):
-		recips[]
+		recips=[]
 		if msg.has_key("to"):
 			strRecipients = msg['to']
 			split = strRecipients.split(',')
