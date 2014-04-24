@@ -169,8 +169,10 @@ def change_password():
 @app.route('/messages')
 def messages():
 	if 'username' in session:
-		messages = getAllMessages(username, password)
-		return render_template('messages.html', messages)
+		messages = getAllUserMail(session['username'])
+		sent = getUserSentMail(session['username'])
+		received = getUserRecievedMail(session['username'])
+		return render_template('messages.html', messages = messages, sent = sent, received = received)
 	else:
 		return redirect('/')
 

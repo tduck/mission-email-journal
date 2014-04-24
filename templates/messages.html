@@ -63,12 +63,12 @@ To: <input type="text" size="12" id="endDate" />
 	</td>
 <td>
 <div id="accordion" class="scroll">
-	{% for message in messages %}
+{% for message in messages %}
   <h3>+ {{message.subject}}</h3>
   <div>
     <p>{{message.bodyHTML}}</p>
   </div>
-  {% endfor %}
+{% endfor %}
   <h3>Section 2</h3>
   <div>
     <p>Sed non urna. Phasellus eu ligula. Vestibulum sit amet purus.
