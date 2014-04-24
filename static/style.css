@@ -35,7 +35,6 @@ td		{ padding: 0;}
 .navcontainer ul{list-style-type: none; margin:0; padding:0;}
 .navcontainer ul li {display:inline;}
 
-.formbox	{
 .dropmenu	{ color: #377BA8; padding: 0.2em; text-align: center;}
 .dropbutton	{ background-color: #377BA8; color: white; border: 2px solid white; border-style:none none solid none; padding: 0.4em; text-align: left;}
 a:hover .dropbutton { background-color: #60a1cb;}
