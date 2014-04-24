@@ -6,9 +6,6 @@ from flask.ext.mongokit import MongoKit, Document
 app = Flask(__name__)
 app.secret_key = os.urandom(256)
 
-# client = MongoClient('localhost', 27017)
-# db = client.myMissionJournal
-
 
 def getDB():
 	return MongoClient("localhost", 27017).myMissionJournal
