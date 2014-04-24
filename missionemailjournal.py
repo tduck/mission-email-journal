@@ -2,12 +2,14 @@ import sys, hashlib, uuid, os
 from flask import Flask, request, render_template, redirect, session, url_for
 from pymongo import MongoClient
 from flask.ext.mongokit import MongoKit, Document
+import misisonJournalDB
 
 app = Flask(__name__)
 app.secret_key = os.urandom(256)
 
 client = MongoClient('localhost', 27017)
 db = client.myMissionJournal
+dbAccess = MissionJournalDB()
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -144,11 +146,7 @@ def isValidUser(username, password):
 @app.route('/getallmessages/<username>/<password>')
 def getAllMessages(username, password):
 	if isValidUser(username, password):
-		allUserMessages = db.messages.find({"$or":[{"sender":username},{"recipients":username}]})
-		messageList = []
-		if allUserMessages:
-			for message in allUserMessages:
-				messageList.append(message)
+		messageList = dbAccess.getAllUserMail(username = username)
 		return str(messageList)
 	else:
 		return "the username and password could not be validated"
