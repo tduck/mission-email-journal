@@ -194,7 +194,7 @@ def getAllMessages(username, password):
 
 #returns a list of messages sen by the user as a list of dictionaries in JSON form
 @app.route('/getsentmessages/<username>/<password>')
-def getSentMessage(username, password):
+def getSentMessage(userName, password):
 	if isValidUser(userName, password):
 		messageList = getUserSentMail(userName)		
 		return str(messageList)
