@@ -177,9 +177,10 @@ def messages():
 @app.route('/export')
 def export():
 	if 'username' in session:
-		pdf = create_pdf(render_template('landing.html'))
+		messages = getAllUserMail(session['username'])
+		pdf = create_pdf(render_template('exportformat.html', messages = messages))
 		response = make_response(pdf.getvalue())
-		response.headers["Content-Disposition"] = "attachment; filename=books.csv"
+		response.headers["Content-Disposition"] = "attachment; filename=journal.pdf"
 		return response
 	else:
 		return redirect('/')
