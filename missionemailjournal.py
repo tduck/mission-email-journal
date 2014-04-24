@@ -1,5 +1,5 @@
 import sys, hashlib, uuid, os
-from flask import Flask, request, render_template, redirect, session, url_for, make_response
+from flask import Flask,flash, request, render_template, redirect, session, url_for, make_response
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from flask.ext.mongokit import MongoKit, Document
 from pdfs import create_pdf
@@ -86,6 +86,7 @@ def register():
 					"secondaryEmail": request.form['secondary_email']}
 				getUsersCollection().save(user)
 				msg = "Account for " + request.form['username'] + " registered successfully."
+				flash("Thanks for Registering!\nBe sure to add trackme@myldsmissionjournal.com as a recipient of all the emails you want tracked!")
 				return render_template('landing.html', message = msg)
 	return render_template('registration.html', message=msg)
 
