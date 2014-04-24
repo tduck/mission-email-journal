@@ -179,7 +179,7 @@ def messages():
 
 @app.route('/export')
 def export():
-    pdf = create_pdf(render_template('landing.html'))
+    pdf = create_pdf("<html><body>what</body></html>")
     response = make_response(pdf)
     response.headers["Content-Disposition"] = "attachment; filename=books.csv"
     return response
