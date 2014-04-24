@@ -54,7 +54,7 @@ To: <input type="text" size="12" id="endDate" />
 	<div style="border: 1px solid #377BA8; margin:5px; padding:5px;">
 	<b>{{ session['username'] }}</b>
 	<ul>
-	<li>{{len(messages)}} total emails</li>
+	<li>{{messages|length}} total emails</li>
 	<li>46 sent emails</li>
 	<li>40 received emails</li>
 	<li>13 contacts</li>
